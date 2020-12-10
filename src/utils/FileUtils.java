@@ -1,5 +1,6 @@
 package utils;
 
+import manager.account.Account;
 import manager.user.Consumer;
 import manager.user.Manager;
 
@@ -7,9 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class FileUtils {
     public static void saveConsumers(List<Consumer> consumerList){
@@ -63,5 +62,25 @@ public class FileUtils {
             managerList.add(new Manager(arr[0], arr[1]));
         }
         return managerList;
+    }
+
+    public static Map<String, List<Account>> readAccountMap() {
+        Scanner sc = null;
+        try {
+            sc = new Scanner(new File("account.csv"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        sc.nextLine();
+        Map<String, List<Account>> accountMap = new HashMap<>();
+
+        while(sc.hasNextLine()){
+            String line = sc.nextLine();
+            String[] arr = line.split(" ");
+            swtich(){
+
+            }
+        }
+        return accountMap;
     }
 }
