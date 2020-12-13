@@ -67,7 +67,7 @@ public class LoginPage implements IPages {
                 if(catagory==0)//customer login
                     login=true;
                 else
-                    login=false;
+                    login=true;
 
                 //Login successed. Jump to Customer or Manager Pages.
                 if(login) {
