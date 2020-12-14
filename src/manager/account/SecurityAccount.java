@@ -29,7 +29,7 @@ public class SecurityAccount implements Account{
     //记录股票购买的总金额
     private Map<Stock, Integer> stockPurchaseMap;
 
-    private AccountDao accountDao = AccountDao.getInstance();
+    private AccountDao accountDao;
     private StockDao stockDao = StockDao.getInstance();
     private BankIncomeLedger bankIncomeLedger = BankIncomeLedger.getInstance();
     private LogDao logDao = LogDao.getInstance();
@@ -49,6 +49,13 @@ public class SecurityAccount implements Account{
         this.balance = balance;
         stockMap = new HashMap<>();
         stockPurchaseMap = new HashMap<>();
+    }
+
+    private AccountDao getAccountDao() {
+        if(accountDao == null){
+            accountDao = AccountDao.getInstance();
+        }
+        return accountDao;
     }
 
     public void setStockMap(Map<Stock, Integer> stockMap){
@@ -117,7 +124,7 @@ public class SecurityAccount implements Account{
     @Override
     public boolean saving(int money) {
         balance += money;
-        accountDao.updateAccount(this);
+        getAccountDao().updateAccount(this);
 
         logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Security Account save "+ money));
 
@@ -135,7 +142,7 @@ public class SecurityAccount implements Account{
             return false;
         }
         balance -= money;
-        accountDao.updateAccount(this);
+        getAccountDao().updateAccount(this);
 
         logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Security Account draw "+ money));
 
@@ -190,6 +197,16 @@ public class SecurityAccount implements Account{
     @Override
     public String getBalanceStr() {
         return "Security[" + balance + "]";
+    }
+
+    @Override
+    public boolean draw(int transferMoney, int currencyType) {
+        return false;
+    }
+
+    @Override
+    public boolean saving(int transferMoney, int currencyType) {
+        return false;
     }
 
     public Map<Stock, List<Integer>> getStockProfitInfo() {

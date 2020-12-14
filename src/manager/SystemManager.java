@@ -1,9 +1,6 @@
 package manager;
 
-import dao.LoanDao;
-import dao.LogDao;
-import dao.StockDao;
-import dao.UserDao;
+import dao.*;
 import manager.account.*;
 import manager.entity.Collateral;
 import manager.entity.Log;
@@ -24,14 +21,20 @@ public class SystemManager {
     private User currentUser;
     private Account currentAccount;
 
-    private UserDao userDao = UserDao.getInstance();
-    private LoanDao loanDao = LoanDao.getInstance();
-    private StockDao stockDao = StockDao.getInstance();
-    private LogDao logDao = LogDao.getInstance();
+    private AccountDao accountDao;
+    private UserDao userDao;
+    private LoanDao loanDao;
+    private StockDao stockDao;
+    private LogDao logDao;
 
     private SystemManager() {
         currentAccount = null;
         currentUser = null;
+        accountDao = AccountDao.getInstance();
+        userDao = UserDao.getInstance();
+        loanDao = LoanDao.getInstance();
+        stockDao = StockDao.getInstance();
+        logDao = LogDao.getInstance();
 
         new Thread(Timer.getInstance()).start();
     }
@@ -131,13 +134,29 @@ public class SystemManager {
             return new Result<>(false, "Current user is null", null);
         }
         if (accountType == AccountType.CHECKING.getAccountType()) {
-            currentAccount = currentUser.getCheckingAccount();
+            if(currentUser.hasCheckingAccount()){
+                currentAccount = currentUser.getCheckingAccount();
+            }else{
+                return new Result<>(false, "checking account is not exist", null);
+            }
         } else if (accountType == AccountType.SAVING.getAccountType()) {
-            currentAccount = currentUser.getSavingAccount();
+            if(currentUser.hasSavingAccount()){
+                currentAccount = currentUser.getSavingAccount();
+            }else{
+                return new Result<>(false, "saving account is not exist", null);
+            }
         } else if (accountType == AccountType.LOAN.getAccountType()) {
-            currentAccount = currentUser.getLoanAccount();
+            if(currentUser.hasLoanAccount()){
+                currentAccount = currentUser.getLoanAccount();
+            }else{
+                return new Result<>(false, "loan account is not exist", null);
+            }
         } else if (accountType == AccountType.SECURITY.getAccountType()) {
-            currentAccount = currentUser.getSecurityAccount();
+            if(currentUser.hasSecurityAccount()){
+                currentAccount = currentUser.getSecurityAccount();
+            }else{
+                return new Result<>(false, "security account is not exist", null);
+            }
         } else {
             return new Result<>(false, "error type", null);
         }
@@ -341,8 +360,12 @@ public class SystemManager {
      * @param transferMoney
      * @return
      */
-    public Result<Void> transfer(String userName, String accountNo, int transferMoney){
+    public Result<Void> transfer(String userName, String accountNo, int transferMoney, int currencyType){
         Consumer consumer = userDao.searchConsumerByName(userName);
+        if(consumer == null){
+            return new Result<>(false, "The consumer is not exist", null);
+        }
+
         Account account = consumer.searchAccountByNo(accountNo);
 
         if(account == null){
@@ -352,8 +375,8 @@ public class SystemManager {
         if(currentAccount.getBalance() < transferMoney){
             return new Result<>(false, "account money is not enough", null);
         }else{
-            currentAccount.draw(transferMoney);
-            account.saving(transferMoney);
+            currentAccount.draw(transferMoney, currencyType);
+            account.saving(transferMoney, currencyType);
             currentAccount.fee(1);
             logDao.addLog(currentUser.getId(), new Log(Timer.getInstance().getTimeStr(), "transfer to " + accountNo
                     + " " + transferMoney + " success"));

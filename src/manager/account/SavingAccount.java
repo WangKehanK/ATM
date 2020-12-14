@@ -1,7 +1,6 @@
 package manager.account;
 
 import dao.AccountDao;
-import dao.LoanDao;
 import dao.LogDao;
 import manager.BankIncomeLedger;
 import manager.entity.Log;
@@ -21,14 +20,14 @@ public class SavingAccount implements Account, TimerObserver {
 
     private Map<Integer, Integer> balanceMap;
 
-    private AccountDao accountDao = AccountDao.getInstance();
+    private AccountDao accountDao;
     private Timer timer = Timer.getInstance();
     private BankIncomeLedger bankIncomeLedger = BankIncomeLedger.getInstance();
     private LogDao logDao = LogDao.getInstance();
 
     public SavingAccount(String userId){
         this.userId = userId;
-        String accountId = accountDao.getNewAccountId();
+        String accountId = getAccountDao().getNewAccountId();
         this.accountId = accountId;
         balanceMap = new HashMap<>();
         currentCurrencyType = USD;
@@ -36,6 +35,13 @@ public class SavingAccount implements Account, TimerObserver {
         balanceMap.put(EURO, 0);
         balanceMap.put(CNY, 0);
         timer.addTimerObserver(this);
+    }
+
+    private AccountDao getAccountDao() {
+        if(accountDao == null){
+            accountDao = AccountDao.getInstance();
+        }
+        return accountDao;
     }
 
     public SavingAccount(String accountId, String userId){
@@ -60,7 +66,7 @@ public class SavingAccount implements Account, TimerObserver {
         int currentBalance = balanceMap.getOrDefault(currentCurrencyType, 0);
         currentBalance += money;
         balanceMap.put(currentCurrencyType, currentBalance);
-        accountDao.updateAccount(this);
+        getAccountDao().updateAccount(this);
 
         logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Saving Account save "+ money));
 
@@ -82,7 +88,7 @@ public class SavingAccount implements Account, TimerObserver {
         }else{
             currentBalance -= money;
             balanceMap.put(currentCurrencyType, currentBalance);
-            accountDao.updateAccount(this);
+            getAccountDao().updateAccount(this);
         }
         logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Saving Account draw "+ money));
         return true;
@@ -167,19 +173,19 @@ public class SavingAccount implements Account, TimerObserver {
         if(rateType == AccountDao.DAY_RATE && calendar.get(Calendar.HOUR) == 0){
             for(int key : balanceMap.keySet()){
                 Integer balance = balanceMap.get(key);
-                balance = (int) (balance * (1 + accountDao.getRate(rateType)));
+                balance = (int) (balance * (1 + getAccountDao().getRate(rateType)));
                 balanceMap.put(key, balance);
             }
         }else if(rateType == AccountDao.MONTH_RATE && calendar.get(Calendar.DAY_OF_MONTH) == 1 && calendar.get(Calendar.HOUR) == 0){
             for(int key : balanceMap.keySet()){
                 Integer balance = balanceMap.get(key);
-                balance = (int) (balance * (1 + accountDao.getRate(rateType)));
+                balance = (int) (balance * (1 + getAccountDao().getRate(rateType)));
                 balanceMap.put(key, balance);
             }
         }else if(rateType == AccountDao.YEAR_RATE && calendar.get(Calendar.MONTH) == 1 && calendar.get(Calendar.DAY_OF_MONTH) == 1&& calendar.get(Calendar.HOUR) == 0){
             for(int key : balanceMap.keySet()){
                 Integer balance = balanceMap.get(key);
-                balance = (int) (balance * (1 + accountDao.getRate(rateType)));
+                balance = (int) (balance * (1 + getAccountDao().getRate(rateType)));
                 balanceMap.put(key, balance);
             }
         }
@@ -225,5 +231,33 @@ public class SavingAccount implements Account, TimerObserver {
             str+= System.lineSeparator();
         }
         return str;
+    }
+
+    @Override
+    public boolean draw(int transferMoney, int currencyType) {
+        int currentBalance = balanceMap.getOrDefault(currencyType, 0);
+
+        if(currentBalance < transferMoney){
+            return false;
+        }else{
+            currentBalance -= transferMoney;
+            balanceMap.put(currencyType, currentBalance);
+            getAccountDao().updateAccount(this);
+        }
+
+        logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Saving Account transfer "+ transferMoney + " currencyType" + currencyType));
+        return true;
+    }
+
+    @Override
+    public boolean saving(int transferMoney, int currencyType) {
+        int currentBalance = balanceMap.getOrDefault(currencyType, 0);
+        currentBalance += transferMoney;
+        balanceMap.put(currencyType, currentBalance);
+        getAccountDao().updateAccount(this);
+
+        logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Saving Account received "+ transferMoney + " currencyType" + currencyType));
+
+        return true;
     }
 }

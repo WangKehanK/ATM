@@ -35,4 +35,8 @@ public interface Account {
     void fee(int fee);
 
     String getBalanceStr();
+
+    boolean draw(int transferMoney, int currencyType);
+
+    boolean saving(int transferMoney, int currencyType);
 }

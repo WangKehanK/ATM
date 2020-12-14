@@ -27,9 +27,11 @@ public class AccountDao {
         maxId = 0;
         accountMap = FileUtils.readAccountMap();
         for(String userId: accountMap.keySet()){
-            int id = Integer.parseInt(userId);
-            if(id > maxId){
-                maxId = id;
+            for(Account account : accountMap.get(userId)){
+                int id = Integer.parseInt(account.getAccountId());
+                if(id > maxId){
+                    maxId = id;
+                }
             }
         }
         savingRateMap = getSavingRateMap();

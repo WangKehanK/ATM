@@ -3,7 +3,6 @@ package manager.account;
 import dao.AccountDao;
 import dao.LogDao;
 import manager.BankIncomeLedger;
-import manager.SystemManager;
 import manager.entity.Log;
 import manager.timer.Timer;
 
@@ -18,12 +17,12 @@ public class CheckingAccount implements Account{
 
     private Map<Integer, Integer> balanceMap;
 
-    private AccountDao accountDao = AccountDao.getInstance();
+    private AccountDao accountDao;
     private BankIncomeLedger bankIncomeLedger = BankIncomeLedger.getInstance();
     private LogDao logDao = LogDao.getInstance();
 
     public CheckingAccount(String userId) {
-        String accountId = accountDao.getNewAccountId();
+        String accountId = getAccountDao().getNewAccountId();
         this.accountId = accountId;
         this.userId = userId;
         balanceMap = new HashMap<>();
@@ -43,6 +42,13 @@ public class CheckingAccount implements Account{
         balanceMap.put(CNY, 0);
     }
 
+    private AccountDao getAccountDao() {
+        if(accountDao == null){
+            accountDao = AccountDao.getInstance();
+        }
+        return accountDao;
+    }
+
     public void reloadAccount(Map<Integer, Integer> map){
         balanceMap = map;
     }
@@ -53,7 +59,7 @@ public class CheckingAccount implements Account{
         int currentBalance = balanceMap.getOrDefault(currentCurrencyType, 0);
          currentBalance += money;
          balanceMap.put(currentCurrencyType, currentBalance);
-         accountDao.updateAccount(this);
+        getAccountDao().updateAccount(this);
 
          logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Checking Account save "+ money));
 
@@ -75,7 +81,7 @@ public class CheckingAccount implements Account{
         }else{
             currentBalance -= money;
             balanceMap.put(currentCurrencyType, currentBalance);
-            accountDao.updateAccount(this);
+            getAccountDao().updateAccount(this);
         }
 
         logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Checking Account draw "+ money));
@@ -185,5 +191,33 @@ public class CheckingAccount implements Account{
             str+= System.lineSeparator();
         }
         return str;
+    }
+
+    @Override
+    public boolean draw(int transferMoney, int currencyType) {
+        int currentBalance = balanceMap.getOrDefault(currencyType, 0);
+
+        if(currentBalance < transferMoney){
+            return false;
+        }else{
+            currentBalance -= transferMoney;
+            balanceMap.put(currencyType, currentBalance);
+            getAccountDao().updateAccount(this);
+        }
+
+        logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Checking Account transfer "+ transferMoney + " currencyType" + currencyType));
+        return true;
+    }
+
+    @Override
+    public boolean saving(int transferMoney, int currencyType) {
+        int currentBalance = balanceMap.getOrDefault(currencyType, 0);
+        currentBalance += transferMoney;
+        balanceMap.put(currencyType, currentBalance);
+        getAccountDao().updateAccount(this);
+
+        logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Checking Account received "+ transferMoney + " currencyType" + currencyType));
+
+        return true;
     }
 }

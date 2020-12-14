@@ -52,6 +52,7 @@ public class Timer implements Runnable{
             }
 
             calendar.add(Calendar.HOUR, 1);
+            System.out.println(getTimeStr());
 
             for(TimerObserver timerObserver : observerList){
                 timerObserver.timeChange();

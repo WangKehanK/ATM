@@ -26,7 +26,7 @@ public class LoanAccount  implements Account, TimerObserver {
 
     private List<Collateral> collateralList;
     private LoanDao loanDao = LoanDao.getInstance();
-    private AccountDao accountDao = AccountDao.getInstance();
+    private AccountDao accountDao;
     private Timer timer = Timer.getInstance();
     private BankIncomeLedger bankIncomeLedger = BankIncomeLedger.getInstance();
     private LogDao logDao = LogDao.getInstance();
@@ -50,6 +50,13 @@ public class LoanAccount  implements Account, TimerObserver {
         this.userId = userId;
         this.loanRateType = loanRateType;
         timer.addTimerObserver(this);
+    }
+
+    private AccountDao getAccountDao() {
+        if(accountDao == null){
+            accountDao = AccountDao.getInstance();
+        }
+        return accountDao;
     }
 
     public void reloadLoan(List<Integer> loanList) {
@@ -154,5 +161,15 @@ public class LoanAccount  implements Account, TimerObserver {
     @Override
     public String getBalanceStr() {
         return "";
+    }
+
+    @Override
+    public boolean draw(int transferMoney, int currencyType) {
+        return false;
+    }
+
+    @Override
+    public boolean saving(int transferMoney, int currencyType) {
+        return false;
     }
 }

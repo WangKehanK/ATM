@@ -1,5 +1,10 @@
 package ui;
 
+import manager.SystemManager;
+import manager.account.Account;
+import manager.account.AccountType;
+import manager.entity.Result;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,7 +54,8 @@ public class PickAccountPage implements IPages{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if(true){
+                Result<Account> result = SystemManager.getInstance().chooseAccount(AccountType.SAVING.getAccountType());
+                if(result.isSuccess()){
                     frame.dispose();
                     switch (type){
                         case SAVE:
@@ -59,6 +65,7 @@ public class PickAccountPage implements IPages{
                             new swPage(OPTION_TYPE.WITHDRAW,ACCOUT_TYPE.SAVING);
                             break;
                         case TRANSFER:
+                            new swPage(OPTION_TYPE.TRANSFER,ACCOUT_TYPE.SAVING);
                             break;
                     }
                 }
@@ -75,7 +82,8 @@ public class PickAccountPage implements IPages{
         checkingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(true){
+                Result<Account> result = SystemManager.getInstance().chooseAccount(AccountType.CHECKING.getAccountType());
+                if(result.isSuccess()){
                     frame.dispose();
                     switch (type){
                         case SAVE:
@@ -85,6 +93,7 @@ public class PickAccountPage implements IPages{
                             new swPage(OPTION_TYPE.WITHDRAW,ACCOUT_TYPE.CHECKING);
                             break;
                         case TRANSFER:
+                            new swPage(OPTION_TYPE.TRANSFER,ACCOUT_TYPE.SAVING);
                             break;
                     }
                 }

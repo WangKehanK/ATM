@@ -46,6 +46,7 @@ public class FileUtils {
             String[] arr = line.split(" ");
             consumerList.add(new Consumer(arr[1], arr[2], arr[0]));
         }
+        sc.close();
         return consumerList;
     }
 
@@ -64,6 +65,7 @@ public class FileUtils {
             String[] arr = line.split(" ");
             managerList.add(new Manager(arr[0], arr[1]));
         }
+        sc.close();
         return managerList;
     }
 
@@ -146,6 +148,7 @@ public class FileUtils {
             accountList.add(account);
             accountMap.put(userId, accountList);
         }
+        sc.close();
         return accountMap;
     }
 
@@ -191,6 +194,7 @@ public class FileUtils {
 
             collateralList.add(collateral);
         }
+        sc.close();
         return collateralList;
     }
 
@@ -216,6 +220,7 @@ public class FileUtils {
 
             stockList.add(stock);
         }
+        sc.close();
         return stockList;
     }
 
