@@ -164,6 +164,7 @@ public class swPage implements IPages{
             @Override
             public void actionPerformed(ActionEvent e) {
                 new CustomerPage();
+                frame.dispose();
             }
         });
         //panel.add(withdrawButton);
