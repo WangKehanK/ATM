@@ -120,7 +120,7 @@ public class Consumer extends AbstractUser {
         if(savingAccount != null){
             return null;
         }
-        SavingAccount savingAccount = new SavingAccount(consumerId);
+        SavingAccount savingAccount = new SavingAccount(consumerId, AccountDao.DAY_RATE);
         this.savingAccount = savingAccount;
         accountList.add(savingAccount);
         accountDao.addAccount(consumerId, savingAccount);

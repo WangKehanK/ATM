@@ -59,7 +59,7 @@ public class CheckingAccount implements Account{
         int currentBalance = balanceMap.getOrDefault(currentCurrencyType, 0);
          currentBalance += money;
          balanceMap.put(currentCurrencyType, currentBalance);
-        getAccountDao().updateAccount(this);
+         getAccountDao().updateAccount(this);
 
          logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Checking Account save "+ money));
 
@@ -123,6 +123,7 @@ public class CheckingAccount implements Account{
         balance += convertMoney;
         balanceMap.put(toCurrencyType, balance);
         logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Checking Account convert "+ money));
+        getAccountDao().updateAccount(this);
         return true;
     }
 
@@ -170,6 +171,7 @@ public class CheckingAccount implements Account{
             balanceMap.put(USD, balance);
         }
         bankIncomeLedger.income(fee);
+        getAccountDao().updateAccount(this);
     }
 
     @Override
@@ -206,6 +208,7 @@ public class CheckingAccount implements Account{
         }
 
         logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Checking Account transfer "+ transferMoney + " currencyType" + currencyType));
+        getAccountDao().updateAccount(this);
         return true;
     }
 
@@ -217,7 +220,7 @@ public class CheckingAccount implements Account{
         getAccountDao().updateAccount(this);
 
         logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Checking Account received "+ transferMoney + " currencyType" + currencyType));
-
+        getAccountDao().updateAccount(this);
         return true;
     }
 }

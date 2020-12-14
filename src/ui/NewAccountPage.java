@@ -3,18 +3,21 @@ package ui;
 import manager.SystemManager;
 import manager.account.Account;
 import manager.entity.Result;
+import manager.timer.Timer;
+import manager.timer.TimerObserver;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NewAccountPage{
+public class NewAccountPage implements TimerObserver {
 
 
     JFrame frame;
     PickAccountPage.OPTION_TYPE option_type;
     PickAccountPage.ACCOUT_TYPE accout_type;
     SystemManager systemManager = SystemManager.getInstance();
+    JLabel time = new JLabel();
     //Customer customer;
     public NewAccountPage(PickAccountPage.ACCOUT_TYPE account_type){
         this.option_type= PickAccountPage.OPTION_TYPE.SAVE;
@@ -32,11 +35,17 @@ public class NewAccountPage{
 
         frame.repaint();
         frame.setVisible(true);
+
+        Timer.getInstance().addTimerObserver(this);
     }
 
     private void placePanelComponents(JPanel panel){
 
         panel.setLayout(null);
+
+        time = new JLabel(Timer.getInstance().getTimeStr());
+        time.setBounds(0,0,160,25);
+        panel.add(time);
 
         JLabel label = new JLabel("Please enter how much you are going to save.");
         label.setBounds(400,50,500,50);
@@ -113,4 +122,8 @@ public class NewAccountPage{
     }
 
 
+    @Override
+    public void timeChange() {
+        time.setText(Timer.getInstance().getTimeStr());
+    }
 }

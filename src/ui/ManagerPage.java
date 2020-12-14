@@ -1,11 +1,15 @@
 package ui;
 
+import manager.timer.Timer;
+import manager.timer.TimerObserver;
+
 import javax.swing.*;
 
-public class ManagerPage implements IPages {
+public class ManagerPage implements IPages, TimerObserver {
 
 
     JFrame frame;
+    JLabel time = new JLabel();
     //Manager manager;
     //public ManagerPage(Manager manager){
 
@@ -20,6 +24,7 @@ public class ManagerPage implements IPages {
 
         frame.repaint();
         frame.setVisible(true);
+        Timer.getInstance().addTimerObserver(this);
     }
 
     private void placePanelComponents(JPanel panel){
@@ -29,4 +34,8 @@ public class ManagerPage implements IPages {
     }
 
 
+    @Override
+    public void timeChange() {
+        time.setText(Timer.getInstance().getTimeStr());
+    }
 }

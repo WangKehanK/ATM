@@ -4,6 +4,8 @@ import manager.SystemManager;
 import manager.account.Account;
 import manager.account.AccountType;
 import manager.entity.Result;
+import manager.timer.Timer;
+import manager.timer.TimerObserver;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,11 +14,12 @@ import java.awt.event.ActionListener;
 
 
 
-public class PickAccountPage implements IPages{
+public class PickAccountPage implements IPages, TimerObserver {
 
 
     JFrame frame;
     OPTION_TYPE type;
+    JLabel time = new JLabel();
 
     public PickAccountPage(OPTION_TYPE type){
         this.type=type;
@@ -30,6 +33,13 @@ public class PickAccountPage implements IPages{
 
         frame.repaint();
         frame.setVisible(true);
+
+        Timer.getInstance().addTimerObserver(this);
+    }
+
+    @Override
+    public void timeChange() {
+        time.setText(Timer.getInstance().getTimeStr());
     }
 
     public enum OPTION_TYPE{
@@ -43,6 +53,9 @@ public class PickAccountPage implements IPages{
     private void placePanelComponents(JPanel panel){
         panel.setLayout(null);
 
+        time = new JLabel(Timer.getInstance().getTimeStr());
+        time.setBounds(0,0,160,25);
+        panel.add(time);
 
         JLabel label = new JLabel("Please pick your account to save or withdraw.");
         label.setBounds(120,20,160,25);

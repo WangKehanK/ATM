@@ -3,6 +3,8 @@ package ui;
 import manager.SystemManager;
 import manager.account.Account;
 import manager.entity.Result;
+import manager.timer.Timer;
+import manager.timer.TimerObserver;
 
 import javax.swing.*;
 import javax.swing.*;
@@ -10,13 +12,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class swPage implements IPages{
+public class swPage implements IPages, TimerObserver {
 
     JFrame frame;
     PickAccountPage.OPTION_TYPE option_type;
     PickAccountPage.ACCOUT_TYPE accout_type;
     int currencyType;
     SystemManager systemManager = SystemManager.getInstance();
+    JLabel time = new JLabel();
 
     //Customer customer;
     public swPage(PickAccountPage.OPTION_TYPE option_type,PickAccountPage.ACCOUT_TYPE account_type){
@@ -36,11 +39,16 @@ public class swPage implements IPages{
 
         frame.repaint();
         frame.setVisible(true);
+        Timer.getInstance().addTimerObserver(this);
     }
 
     private void placePanelComponents(JPanel panel){
 
         panel.setLayout(null);
+
+        time = new JLabel(Timer.getInstance().getTimeStr());
+        time.setBounds(0,0,160,25);
+        panel.add(time);
 
         JLabel label = new JLabel("Welcome.");
         label.setBounds(400,50,200,50);
@@ -180,4 +188,8 @@ public class swPage implements IPages{
     }
 
 
+    @Override
+    public void timeChange() {
+        time.setText(Timer.getInstance().getTimeStr());
+    }
 }

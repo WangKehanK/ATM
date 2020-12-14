@@ -1,14 +1,18 @@
 package ui;
 
+import manager.SystemManager;
+import manager.timer.Timer;
+import manager.timer.TimerObserver;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class WelcomePage implements IPages {
+public class WelcomePage implements IPages, TimerObserver {
 
         JFrame frame;
-
+        JLabel time = new JLabel();
         public WelcomePage(){
             frame = new JFrame("Welcome to BU Trust Bank.");
             JPanel panel = new JPanel();
@@ -20,6 +24,8 @@ public class WelcomePage implements IPages {
 
             frame.repaint();
             frame.setVisible(true);
+            SystemManager.getInstance();
+            Timer.getInstance().addTimerObserver(this);
         }
 
         private void placePanelComponents(JPanel panel) {
@@ -27,6 +33,10 @@ public class WelcomePage implements IPages {
 
             panel.setLayout(null);
 
+
+            time = new JLabel(Timer.getInstance().getTimeStr());
+            time.setBounds(0,0,160,25);
+            panel.add(time);
 
 
 
@@ -64,7 +74,9 @@ public class WelcomePage implements IPages {
         }
 
 
-
-
-
+        @Override
+        public void timeChange() {
+            time.setText(Timer.getInstance().getTimeStr());
+            frame.repaint();
+        }
 }

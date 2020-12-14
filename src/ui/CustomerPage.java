@@ -1,6 +1,8 @@
 package ui;
 
 import manager.SystemManager;
+import manager.timer.Timer;
+import manager.timer.TimerObserver;
 import manager.user.Consumer;
 
 import javax.swing.*;
@@ -9,11 +11,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CustomerPage implements IPages {
+public class CustomerPage implements IPages, TimerObserver {
 
     JFrame frame;
     SystemManager systemManager = SystemManager.getInstance();
     Consumer consumer;
+    JLabel time = new JLabel();
     public CustomerPage(){
         frame = new JFrame("Welcome to the bank.");
         JPanel panel = new JPanel();
@@ -28,6 +31,7 @@ public class CustomerPage implements IPages {
         frame.repaint();
         frame.setVisible(true);
 
+        Timer.getInstance().addTimerObserver(this);
 
     }
 
@@ -35,6 +39,11 @@ public class CustomerPage implements IPages {
 
         consumer = (Consumer) systemManager.getCurrentUser();
         panel.setLayout(null);
+
+        time = new JLabel(Timer.getInstance().getTimeStr());
+        time.setBounds(0,0,160,25);
+        panel.add(time);
+
         JLabel label = new JLabel("Welcome " + consumer.getUserName());
         label.setBounds(400,50,200,50);
         //panel.add(label);
@@ -128,4 +137,8 @@ public class CustomerPage implements IPages {
     }
 
 
+    @Override
+    public void timeChange() {
+        time.setText(Timer.getInstance().getTimeStr());
+    }
 }

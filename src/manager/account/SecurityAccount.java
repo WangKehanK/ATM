@@ -95,6 +95,7 @@ public class SecurityAccount implements Account{
 
         logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Security Account purchase "+ stock.getStockName() + " number:" + stockAmount));
 
+        getAccountDao().updateAccount(this);
         return true;
     }
 
@@ -118,6 +119,7 @@ public class SecurityAccount implements Account{
 
         logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Security Account sell stock "+ stock.getStockName() + " number:" + stockAmount));
 
+        getAccountDao().updateAccount(this);
         return true;
     }
 
@@ -192,6 +194,7 @@ public class SecurityAccount implements Account{
     public void fee(int fee) {
         balance -= fee;
         bankIncomeLedger.income(fee);
+        getAccountDao().updateAccount(this);
     }
 
     @Override

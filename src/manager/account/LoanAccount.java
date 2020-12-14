@@ -76,6 +76,7 @@ public class LoanAccount  implements Account, TimerObserver {
         balance += collateral.getPrice();
         loan += collateral.getPrice();
 
+        getAccountDao().updateAccount(this);
         logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "loan "+ collateral.getPrice() + " by " + collateral.getName()));
         return true;
     }
@@ -150,12 +151,14 @@ public class LoanAccount  implements Account, TimerObserver {
         }else if(loanRateType == LoanDao.YEAR_RATE && calendar.get(Calendar.MONTH) == 1 && calendar.get(Calendar.DAY_OF_MONTH) == 1 && calendar.get(Calendar.HOUR) == 0){
             loan = (int) (loan * (1 + loanDao.getLoanRate(loanRateType)));
         }
+        getAccountDao().updateAccount(this);
     }
 
     @Override
     public void fee(int fee) {
         balance -= fee;
         bankIncomeLedger.income(fee);
+        getAccountDao().updateAccount(this);
     }
 
     @Override

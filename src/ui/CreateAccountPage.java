@@ -3,17 +3,20 @@ package ui;
 import manager.SystemManager;
 import manager.account.Account;
 import manager.entity.Result;
+import manager.timer.Timer;
+import manager.timer.TimerObserver;
 import manager.user.Consumer;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CreateAccountPage implements IPages {
+public class CreateAccountPage implements IPages, TimerObserver {
 
     JFrame frame;
     SystemManager systemManager = SystemManager.getInstance();
     Consumer consumer;
+    JLabel time = new JLabel();
 
     public CreateAccountPage(){
         frame = new JFrame("Welcome to the bank.");
@@ -26,6 +29,8 @@ public class CreateAccountPage implements IPages {
 
         frame.repaint();
         frame.setVisible(true);
+
+        Timer.getInstance().addTimerObserver(this);
     }
 
     private void placePanelComponents(JPanel panel){
@@ -33,6 +38,9 @@ public class CreateAccountPage implements IPages {
 
         panel.setLayout(null);
 
+        time = new JLabel(Timer.getInstance().getTimeStr());
+        time.setBounds(0,0,160,25);
+        panel.add(time);
 
 
         JLabel label = new JLabel("Create account.");
@@ -75,4 +83,8 @@ public class CreateAccountPage implements IPages {
 
     }
 
+    @Override
+    public void timeChange() {
+        time.setText(Timer.getInstance().getTimeStr());
+    }
 }

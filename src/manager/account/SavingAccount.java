@@ -25,7 +25,7 @@ public class SavingAccount implements Account, TimerObserver {
     private BankIncomeLedger bankIncomeLedger = BankIncomeLedger.getInstance();
     private LogDao logDao = LogDao.getInstance();
 
-    public SavingAccount(String userId){
+    public SavingAccount(String userId, int rateType){
         this.userId = userId;
         String accountId = getAccountDao().getNewAccountId();
         this.accountId = accountId;
@@ -35,6 +35,9 @@ public class SavingAccount implements Account, TimerObserver {
         balanceMap.put(EURO, 0);
         balanceMap.put(CNY, 0);
         timer.addTimerObserver(this);
+
+
+        rateType = rateType;
     }
 
     private AccountDao getAccountDao() {
@@ -128,6 +131,7 @@ public class SavingAccount implements Account, TimerObserver {
         balance = balanceMap.getOrDefault(toCurrencyType, 0);
         balance += convertMoney;
         balanceMap.put(toCurrencyType, balance);
+        getAccountDao().updateAccount(this);
         return true;
     }
 
@@ -189,6 +193,7 @@ public class SavingAccount implements Account, TimerObserver {
                 balanceMap.put(key, balance);
             }
         }
+        getAccountDao().updateAccount(this);
     }
 
     @Override
@@ -246,6 +251,7 @@ public class SavingAccount implements Account, TimerObserver {
         }
 
         logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Saving Account transfer "+ transferMoney + " currencyType" + currencyType));
+        getAccountDao().updateAccount(this);
         return true;
     }
 
@@ -257,7 +263,7 @@ public class SavingAccount implements Account, TimerObserver {
         getAccountDao().updateAccount(this);
 
         logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "Saving Account received "+ transferMoney + " currencyType" + currencyType));
-
+        getAccountDao().updateAccount(this);
         return true;
     }
 }

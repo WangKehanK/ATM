@@ -2,6 +2,8 @@ package ui;
 
 import manager.SystemManager;
 import manager.entity.Result;
+import manager.timer.Timer;
+import manager.timer.TimerObserver;
 import manager.user.Consumer;
 import manager.user.Manager;
 
@@ -9,11 +11,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoginPage implements IPages {
+public class LoginPage implements IPages, TimerObserver {
 
     JFrame frame;
     int catagory;
     SystemManager systemManager = SystemManager.getInstance();
+    JLabel time = new JLabel();
     // Login Page received a integer to identify customer or manager.catagory 0:customer,1:manager
     public LoginPage(int catagory){
         this.catagory=catagory;
@@ -32,12 +35,19 @@ public class LoginPage implements IPages {
         placePanelComponents(panel);
         frame.add(panel);
         frame.setVisible(true);
+
+        Timer.getInstance().addTimerObserver(this);
     }
 
     private void placePanelComponents(JPanel panel) {
 
 
         panel.setLayout(null);
+
+        time = new JLabel(Timer.getInstance().getTimeStr());
+        time.setBounds(0,0,160,25);
+        panel.add(time);
+
         JLabel userLabel = new JLabel("Username:");
         userLabel.setBounds(10,20,80,25);
         panel.add(userLabel);
@@ -121,4 +131,8 @@ public class LoginPage implements IPages {
 
     }
 
+    @Override
+    public void timeChange() {
+        time.setText(Timer.getInstance().getTimeStr());
+    }
 }
