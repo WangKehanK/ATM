@@ -1,3 +1,10 @@
+package ui;
+
+import manager.SystemManager;
+import manager.entity.Result;
+import manager.user.Consumer;
+import manager.user.Manager;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,6 +13,7 @@ public class LoginPage implements IPages {
 
     JFrame frame;
     int catagory;
+    SystemManager systemManager = SystemManager.getInstance();
     // Login Page received a integer to identify customer or manager.catagory 0:customer,1:manager
     public LoginPage(int catagory){
         this.catagory=catagory;
@@ -57,18 +65,25 @@ public class LoginPage implements IPages {
                 String username = String.valueOf(userText.getText());
                 System.out.println(username);
                 System.out.println(password);
-                Boolean login;
+                Boolean login = false;
 
                 if(password==null||username==null||password.length()==0||username.length()==0) {
                     JOptionPane.showMessageDialog(null, "Empty username or password!", "Error ", JOptionPane.ERROR_MESSAGE);
                     userText.setText("");
                 }
                 //Here Add Login function
-                if(catagory==0)//customer login
-                    login=true;
-                else
-                    login=true;
 
+                if(catagory==0) {//customer login
+                    Result<Consumer> consumerResult = systemManager.consumerLogin(username, password);
+                    if(consumerResult.isSuccess()){
+                        login = true;
+                    }
+                }else {
+                    Result<Manager> managerResult = systemManager.managerLogin(username, password);
+                    if(managerResult.isSuccess()){
+                        login = true;
+                    }
+                }
                 //Login successed. Jump to Customer or Manager Pages.
                 if(login) {
                     frame.dispose();

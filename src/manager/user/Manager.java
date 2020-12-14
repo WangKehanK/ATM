@@ -1,23 +1,24 @@
 package manager.user;
 
-import manager.Log;
-import manager.account.Account;
-import manager.account.CheckingAccount;
-import manager.account.LoanAccount;
-import manager.account.SavingAccount;
+import dao.LogDao;
+import manager.entity.Log;
+import manager.account.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 经理类
  */
 public class Manager extends AbstractUser {
+    private LogDao logDao = LogDao.getInstance();
+
     public Manager(String userName, String password) {
         super(userName, password);
     }
 
-    public List<Log> getLogs(){
-        return null;
+    public Map<String, List<Log>> getLogs(){
+        return logDao.getLogs();
     }
 
     @Override
@@ -61,12 +62,38 @@ public class Manager extends AbstractUser {
     }
 
     @Override
-    public LoanAccount createLoanAccount() {
+    public LoanAccount createLoanAccount(int loanRateType) {
         return null;
     }
 
     @Override
-    public SavingAccount createSecurityAccount() {
+    public SecurityAccount createSecurityAccount() {
         return null;
     }
+
+    @Override
+    public Account searchAccountByNo(String accountNo) {
+        return null;
+    }
+
+    @Override
+    public String getId() {
+        return 1+"";
+    }
+
+    @Override
+    public boolean hasCheckingAccount() {
+        return false;
+    }
+
+    @Override
+    public boolean hasLoanAccount() {
+        return false;
+    }
+
+    @Override
+    public boolean hasSecurityAccount() {
+        return false;
+    }
+
 }

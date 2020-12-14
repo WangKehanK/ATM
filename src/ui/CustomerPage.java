@@ -1,13 +1,19 @@
+package ui;
+
+import manager.SystemManager;
+import manager.user.Consumer;
+
 import javax.swing.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CustomerPage implements IPages{
+public class CustomerPage implements IPages {
 
     JFrame frame;
-    //Customer customer;
+    SystemManager systemManager = SystemManager.getInstance();
+    Consumer consumer;
     public CustomerPage(){
         frame = new JFrame("Welcome to the bank.");
         JPanel panel = new JPanel();
@@ -21,13 +27,15 @@ public class CustomerPage implements IPages{
 
         frame.repaint();
         frame.setVisible(true);
+
+
     }
 
     private void placePanelComponents(JPanel panel){
 
+        consumer = (Consumer) systemManager.getCurrentUser();
         panel.setLayout(null);
-
-        JLabel label = new JLabel("Welcome Z.Y Zhang.");
+        JLabel label = new JLabel("Welcome " + consumer.getUserName());
         label.setBounds(400,50,200,50);
         //panel.add(label);
 
@@ -38,8 +46,9 @@ public class CustomerPage implements IPages{
             public void actionPerformed(ActionEvent e) {
                 //Show balance
 
-                if(true)
-                    JOptionPane.showMessageDialog(null,"Saving Account:100$ \n Checking Account:100$","Balance",JOptionPane.PLAIN_MESSAGE);
+                String balance = consumer.getBalance();
+                if(balance.length() > 0)
+                    JOptionPane.showMessageDialog(null,balance,"Balance",JOptionPane.PLAIN_MESSAGE);
                 else
                     JOptionPane.showMessageDialog(null,"No existed account.","Error ",JOptionPane.ERROR_MESSAGE);
 

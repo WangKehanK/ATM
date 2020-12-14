@@ -1,9 +1,6 @@
 package manager.user;
 
-import manager.account.Account;
-import manager.account.CheckingAccount;
-import manager.account.LoanAccount;
-import manager.account.SavingAccount;
+import manager.account.*;
 
 import java.util.List;
 
@@ -28,9 +25,17 @@ public interface User {
 
     CheckingAccount createCheckingAccount();
 
-    LoanAccount createLoanAccount();
+    LoanAccount createLoanAccount(int loanRateType);
 
-    SavingAccount createSecurityAccount();
+    SecurityAccount createSecurityAccount();
 
+    Account searchAccountByNo(String accountNo);
 
+    String getId();
+
+    boolean hasCheckingAccount();
+
+    boolean hasLoanAccount();
+
+    boolean hasSecurityAccount();
 }

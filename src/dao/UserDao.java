@@ -10,6 +10,7 @@ import java.util.List;
  * 单例，操作user相关的数据操作
  */
 public class UserDao {
+    private int maxId;
 
     private static UserDao userDao = new UserDao();
     private List<Consumer> consumerList;
@@ -18,6 +19,15 @@ public class UserDao {
     private UserDao() {
         consumerList = FileUtils.readConsumers();
         managerList = FileUtils.readManagers();
+
+        //获取最大的id
+        maxId = 0;
+        for(Consumer consumer : consumerList){
+            int id = Integer.parseInt(consumer.getConsumerId());
+            if(id > maxId){
+                maxId = id;
+            }
+        }
     }
 
     public static UserDao getInstance() {
@@ -54,12 +64,30 @@ public class UserDao {
         return true;
     }
 
-    private Consumer searchConsumerByName(String userName) {
+    public Consumer searchConsumerByName(String userName) {
         for(Consumer consumer : consumerList){
             if(consumer.getUserName().equals(userName)){
                 return consumer;
             }
         }
         return null;
+    }
+
+
+    public List<Consumer> getConsumerList() {
+        return consumerList;
+    }
+
+
+
+    public void createConsumer(Consumer consumer) {
+        consumerList.add(consumer);
+        FileUtils.saveConsumers(consumerList);
+
+    }
+
+    public String getNewConsumerId() {
+        maxId++;
+        return String.format("%010d", maxId);
     }
 }
