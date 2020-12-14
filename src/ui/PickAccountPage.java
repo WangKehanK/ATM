@@ -119,6 +119,19 @@ public class PickAccountPage implements IPages, TimerObserver {
         });
         panel.add(checkingButton);
 
+
+        JButton backButton = new JButton("back");
+        backButton.setBounds(100, 220, 160, 50);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                new CustomerPage();
+
+            }
+        });
+        panel.add(backButton);
+
     }
 
 }

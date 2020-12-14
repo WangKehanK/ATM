@@ -123,6 +123,17 @@ public class CustomerPage implements IPages, TimerObserver {
                 new PickAccountPage(PickAccountPage.OPTION_TYPE.WITHDRAW);
             }
         });
+
+        JButton logoutButton = new JButton("logout");
+        logoutButton.setBounds(850, 450, 150, 50);
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SystemManager.getInstance().logout();
+                frame.dispose();
+                new WelcomePage();
+            }
+        });
         //panel.add(withdrawButton);
 
 
@@ -133,6 +144,7 @@ public class CustomerPage implements IPages, TimerObserver {
         panel.add(saveButton);
         panel.add(createButton);
         panel.add(withdrawButton);
+        panel.add(logoutButton);
 
     }
 

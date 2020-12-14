@@ -47,9 +47,9 @@ public class CreateAccountPage implements IPages, TimerObserver {
         label.setBounds(120,20,160,25);
         panel.add(label);
 
-        JButton customerButton = new JButton("Saving Account");
-        customerButton.setBounds(100, 80, 160, 50);
-        customerButton.addActionListener(new ActionListener() {
+        JButton savingButton = new JButton("Saving Account");
+        savingButton.setBounds(100, 80, 160, 50);
+        savingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Result<Account> result =systemManager.createSavingAccount();
@@ -62,11 +62,11 @@ public class CreateAccountPage implements IPages, TimerObserver {
                 }
             }
         });
-        panel.add(customerButton);
+        panel.add(savingButton);
 
-        JButton ManagerButton = new JButton("Checking Account");
-        ManagerButton.setBounds(100, 150, 160, 50);
-        ManagerButton.addActionListener(new ActionListener() {
+        JButton checkingButton = new JButton("Checking Account");
+        checkingButton.setBounds(100, 150, 160, 50);
+        checkingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Result<Account> result =systemManager.createCheckingAccount();
@@ -79,7 +79,19 @@ public class CreateAccountPage implements IPages, TimerObserver {
                 }
             }
         });
-        panel.add(ManagerButton);
+        panel.add(checkingButton);
+
+        JButton backButton = new JButton("back");
+        backButton.setBounds(100, 220, 160, 50);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                new CustomerPage();
+
+            }
+        });
+        panel.add(backButton);
 
     }
 

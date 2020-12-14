@@ -46,7 +46,7 @@ public class Timer implements Runnable{
         while(true){
             //10S = 1小时
             try {
-                Thread.sleep(1 * 1000);
+                Thread.sleep(60 * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

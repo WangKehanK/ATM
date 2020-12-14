@@ -171,8 +171,8 @@ public class swPage implements IPages, TimerObserver {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CustomerPage();
                 frame.dispose();
+                new CustomerPage();
             }
         });
         //panel.add(withdrawButton);
