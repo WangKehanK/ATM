@@ -1,4 +1,5 @@
 package manager.account;
+import utils.ConfigUtils;
 
 /**
  * Account的接口
@@ -8,12 +9,13 @@ public interface Account {
     int EURO = 2;
     int CNY = 3;
 
-    double USD_2_EURO = 2;
-    double USD_2_CNY = 10;
-    double EURO_2_USD = 0.5;
-    double EURO_2_CNY = 5;
-    double CNY_2_USD = 0.1;
-    double CNY_2_EURO = 0.2;
+    //double USD_2_EURO = 2;
+    double USD_2_EURO = ConfigUtils.getConfigInteger("USDTOEURO", 2);
+    double USD_2_CNY = ConfigUtils.getConfigInteger("USDTOCNY",10);
+    double EURO_2_USD = ConfigUtils.getConfigInteger("EUROTOUSD",0.5);
+    double EURO_2_CNY = ConfigUtils.getConfigInteger("EUROTOCNY", 5);
+    double CNY_2_USD = ConfigUtils.getConfigInteger("CNYTOUSD", 0.1);
+    double CNY_2_EURO = ConfigUtils.getConfigInteger("CNYTOEURO", 0.2);
 
 
     boolean saving(int money);

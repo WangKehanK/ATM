@@ -46,12 +46,12 @@ public class ConfigUtils {
         return configMap.get(key) == null ? defaultValue: configMap.get(key);
     }
 
-    public static int getConfigInteger(String key, int defaultValue) {
+    public static double getConfigInteger(String key, double defaultValue) {
         String value = configMap.get(key);
         if(value == null){
             return defaultValue;
         }else{
-            return Integer.parseInt(value);
+            return Double.parseDouble(value);
         }
     }
 }
