@@ -72,6 +72,7 @@ public class CustomerPage implements IPages, TimerObserver {
             public void actionPerformed(ActionEvent e) {
                 //Customer Login
                 frame.dispose();
+                new LoanPage();
 
             }
         });
