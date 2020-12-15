@@ -8,11 +8,11 @@ All files in ***src*** folder
 
 - Main.java - 
 - dao - The Data Access Object(DAO) patterns we will use in our implementation
-  - AccountDao.java -
-  - LoanDao.java -
-  - LogDao.java -
-  - StockDao.java -
-  - UserDao.java -
+  - AccountDao.java - The account Dao pattern we use to read the database
+  - LoanDao.java - The loan Dao pattern we use to read the database
+  - LogDao.java - The log Dao pattern we use to read the database
+  - StockDao.java -The stock Dao pattern we use to read the database
+  - UserDao.java - The user Dao pattern we use to read the database
 - manager
   - account
     - Account.java
