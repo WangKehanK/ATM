@@ -16,6 +16,11 @@ import java.util.List;
 import java.util.LongSummaryStatistics;
 import java.util.Map;
 
+/**
+ * This file is for SystemManager class
+ * contains all the functions we need for SystemManager class
+ */
+
 public class SystemManager {
 
     private static SystemManager systemManager = new SystemManager();

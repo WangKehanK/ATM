@@ -14,6 +14,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Map;
+/**
+ * This file is for ManagerPage class that implements IPages interface and timer observer
+ * contains all the functions we need for ManagerPage class
+ * provides the UI for Manager Page
+ */
+
 
 public class ManagerPage implements IPages, TimerObserver {
 

@@ -11,6 +11,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This file is for CustomerPage class that implements IPages interface and timer observer
+ * contains all the functions we need for CustomerPage class
+ * provides the UI for Customer Page
+ */
+
 public class CustomerPage implements IPages, TimerObserver {
 
     JFrame frame;

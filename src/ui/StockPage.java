@@ -16,7 +16,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-
+/**
+ * This file is for StockPage class that implements IPages interface
+ * contains all the functions we need for StockPage class
+ * provides the UI for StockPage
+ */
 public class StockPage implements IPages{
 
     JFrame frame;

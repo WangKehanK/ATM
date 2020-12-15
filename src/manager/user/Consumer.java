@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Consumer
+ * This file is for Consumer class that extends AbstractUser class
+ * contains all the functions we need for Consumer class
  */
 public class Consumer extends AbstractUser {
     private String consumerId;

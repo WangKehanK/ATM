@@ -1,5 +1,8 @@
 package manager.entity;
-
+/**
+ * This file is for result class
+ * contains all the functions we need for result class
+ */
 public class Result<T> {
     private boolean success;
     private String msg;

@@ -1,5 +1,9 @@
 package manager.entity;
 
+/**
+ * This file is for Collateral class
+ * contains all the functions we need for collateral class
+ */
 public class Collateral {
     private int type;
     private String name;

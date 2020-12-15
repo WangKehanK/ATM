@@ -10,6 +10,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This file is for NewAccountPage class that implements timer observer
+ * contains all the functions we need for NewAccountPage class
+ * provides the UI for NewAccountPage
+ */
+
 public class NewAccountPage implements TimerObserver {
 
 

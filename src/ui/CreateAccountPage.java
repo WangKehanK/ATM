@@ -13,7 +13,11 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
-
+/**
+ * This file is for CreateAccountPage class that implements IPages interface and timer observer
+ * contains all the functions we need for CreateAccountPage class
+ * provides the UI for create account page
+ */
 public class CreateAccountPage implements IPages, TimerObserver {
 
     JFrame frame;

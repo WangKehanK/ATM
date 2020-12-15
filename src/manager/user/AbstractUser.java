@@ -1,5 +1,10 @@
 package manager.user;
 
+/**
+ * This file is for AbstractUser class that implements User interface
+ * contains all the functions we need for AbstractUser class
+ */
+
 public abstract class AbstractUser implements User{
     private String userName;
     private String password;

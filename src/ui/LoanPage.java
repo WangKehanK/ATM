@@ -19,6 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+/**
+ * This file is for LoanPage class that implements IPages interface
+ * contains all the functions we need for LoanPage class
+ * provides the UI for Loan Page
+ */
+
+
 public class LoanPage implements IPages{
 
     JFrame frame;

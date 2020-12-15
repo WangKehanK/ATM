@@ -11,6 +11,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This file is for saving account, implement the account interface and timer observer
+ * contains all functions for saving account
+ */
+
+
 public class SavingAccount implements Account, TimerObserver {
     private String accountId;
     private String userId;

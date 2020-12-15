@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Securities accounts
+ * This file is for securities accounts implement the account interface
  * Save the security amount at the time of purchase
  * Calculate how much money you made
  */

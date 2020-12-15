@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.logging.SimpleFormatter;
 import utils.ConfigUtils;
 /**
- * Time class, used to calculate time
+ * Time class implements the runnable interface
+ * used to calculate time
  */
 public class Timer implements Runnable{
 

@@ -4,6 +4,10 @@ import manager.timer.Timer;
 
 import java.util.HashMap;
 import java.util.Map;
+/**
+ * This file is for Consumer class that extends AbstractUser class
+ * contains all the functions we need for AbstractUser class
+ */
 
 public class BankIncomeLedger {
 

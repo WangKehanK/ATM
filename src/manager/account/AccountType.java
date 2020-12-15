@@ -1,5 +1,7 @@
 package manager.account;
-
+/**
+ * enum class for all different account type
+ */
 public enum AccountType {
     CHECKING(1, "Checking"),
     SAVING(2, "Saving"),

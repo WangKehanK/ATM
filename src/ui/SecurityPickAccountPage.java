@@ -13,6 +13,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This file is for SecurityPickAccountPage class that implements IPages interface and timer observer
+ * contains all the functions we need for SecurityPickAccountPage class
+ * provides the UI for SecurityPickAccountPage
+ */
 public class SecurityPickAccountPage implements IPages, TimerObserver {
     JFrame frame;
     JLabel time = new JLabel();

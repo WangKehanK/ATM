@@ -1,5 +1,10 @@
 package manager.entity;
 
+/**
+ * This file is for Log class
+ * contains all the functions we need for Log class
+ */
+
 public class Log {
     private String time;
     private String log;

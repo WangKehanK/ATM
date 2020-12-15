@@ -9,6 +9,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This file is for WelcomePage class that implements IPages interface and timer observer
+ * contains all the functions we need for WelcomePage class
+ * provides the UI for WelcomePage
+ */
+
 public class WelcomePage implements IPages, TimerObserver {
 
         JFrame frame;

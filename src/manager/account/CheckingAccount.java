@@ -9,6 +9,11 @@ import manager.timer.Timer;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This file is for Checking account, implement the account interface
+ * contains all functions for Checking account
+ */
+
 public class CheckingAccount implements Account{
     private String accountId;
     private String userId;

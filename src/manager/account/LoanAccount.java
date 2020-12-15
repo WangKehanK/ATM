@@ -14,7 +14,8 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * Loan account
+ * This file is for loan account, implement the account interface and time observer
+ * contains all functions for loan account
  */
 public class LoanAccount  implements Account, TimerObserver {
     private String accountId;
