@@ -5,6 +5,9 @@
   - Every single user can only have one saving account,one checking account,one loan account and one stock account.
   - We have different interest rates for day saving, month saving, year saving.
   - Every 60s in real life equals a day in our bank system, where interest rates will be calculated at daliy basis.
+- 
+- Bonus: Input is getting parsed from the input files and is not harcoded: Details in **config.properties**; we provide exchange rate for three currencies we have (USD, CNY, EURO)
+
 # 2. Structure
 
 All files in ***src*** folder
