@@ -137,7 +137,7 @@ public class CustomerPage implements IPages, TimerObserver {
             }
         });
 
-        JButton logoutButton = new JButton("logout");
+        JButton logoutButton = new JButton("Logout");
         logoutButton.setBounds(850, 450, 150, 50);
         logoutButton.addActionListener(new ActionListener() {
             @Override
@@ -149,6 +149,15 @@ public class CustomerPage implements IPages, TimerObserver {
         });
         //panel.add(withdrawButton);
 
+        JButton exchangeButton = new JButton("Exchange");
+        exchangeButton.setBounds(425, 450, 150, 50);
+        exchangeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                //todo exchange page
+            }
+        });
 
         panel.add(label);
         panel.add(balanceButton);
@@ -159,6 +168,7 @@ public class CustomerPage implements IPages, TimerObserver {
         panel.add(withdrawButton);
         panel.add(stockButton);
         panel.add(logoutButton);
+        panel.add(exchangeButton);
 
     }
 

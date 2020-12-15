@@ -106,7 +106,7 @@ public class PickAccountPage implements IPages, TimerObserver {
                             new swPage(OPTION_TYPE.WITHDRAW,ACCOUT_TYPE.CHECKING);
                             break;
                         case TRANSFER:
-                            new swPage(OPTION_TYPE.TRANSFER,ACCOUT_TYPE.SAVING);
+                            new swPage(OPTION_TYPE.TRANSFER,ACCOUT_TYPE.CHECKING);
                             break;
                     }
                 }
