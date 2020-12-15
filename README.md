@@ -5,13 +5,13 @@
   - Every single user can only have one saving account,one checking account,one loan account and one stock account.
   - We have different interest rates for day saving, month saving, year saving.
   - Every 60s in real life equals one hour in our bank system, where interest rates will be calculated at daliy basis.
-- 
+  - Our exchange rate is steady, which USDTOEURO=2 , USDTOCNY = 10, EUROTOUSD = 0.5, EUROTOCNY = 5, CNYTOUSD = 0.1, CNYTOEURO = 0.2
 - Bonus: Input is getting parsed from the input files and is not harcoded: Details in **config.properties**; we provide exchange rate for three currencies we have (USD, CNY, EURO)
 
 # 2. Structure
 
 All files in ***src*** folder
-
+- config.properties - A config file that allow you to modify the different exchange rates ***It can be located either in ./ATM directory or ./ATM/src directory***.If the file is broken/disappeared for some reason, I have also set a default value for each of variables.
 - Main.java -Note that all below files/classes are in a **dao** and **manager**, **ui**, **utils** directory; Main is located at the same level of these folders, which is a main game entrance; To start the our bank system you have to go to the directory where **Main.java** located first, then follow the instruction to run.
 - dao - The Data Access Object(DAO) patterns we will use in our implementation
   - AccountDao.java - The account Dao pattern we use to read the database
