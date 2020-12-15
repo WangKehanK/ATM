@@ -43,7 +43,7 @@ public class LoanPage implements IPages{
         if(systemManager.getCurrentUser().hasLoanAccount()){
             systemManager.chooseAccount(AccountType.LOAN.getAccountType());
         }else{
-            //TODO:这块最好是可以选择贷款利率的
+            //TODO:It is best to choose the loan interest rate
             systemManager.createLoanAccount(LoanDao.DAY_RATE);
         }
 
