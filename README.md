@@ -47,8 +47,8 @@ All files in ***src*** folder
   - Ipage.java
   - ...
 - utils
-  - ConfigUtils.java
-  - FileUtils.java
+  - ConfigUtils.java - A config util class, read config.properties
+  - FileUtils.java - A file util class, read our database (csv files)
 - account.csv - Account database, used to store account type, the content(money) an account has, corresponding user
 - collateral.csv - Collateral database, used to store the type & name of collateral, and its value 
 - consumers.csv - Consumers database, used to store the username and password of a customer, and their userID (unique identifier)
