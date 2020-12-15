@@ -13,6 +13,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ *  A file util class, read our database (csv files)
+ */
+
 public class FileUtils {
     public static void saveConsumers(List<Consumer> consumerList){
         File file = new File("consumers.csv");

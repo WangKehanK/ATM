@@ -4,6 +4,11 @@ import manager.user.Manager;
 import manager.user.UserManager;
 import ui.WelcomePage;
 
+/**
+ * Note that all below files/classes are in a **dao** and **manager**, **ui**, **utils** directory;
+ * Main is located at the same level of these folders, which is a main game entrance;
+ * To start the our bank system you have to go to the directory where **Main.java** located first, then follow the instruction to run.
+ */
 public class Main {
 
     public static void main(String[] args) {
