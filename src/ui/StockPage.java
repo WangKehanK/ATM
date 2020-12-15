@@ -52,7 +52,7 @@ public class StockPage implements IPages{
 
         for(int i = 0; i< stockList.size(); i++){
             priceList.addElement(stockList.get(i).getPrice());
-            nameList.addElement(stockList.get(i).getName());
+//            nameList.addElement(stockList.get(i).getName());
 
         }
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

@@ -111,12 +111,22 @@ public class NewAccountPage implements TimerObserver {
 
         });
 
-
+        JButton finishButton = new JButton("Finish");
+        finishButton.setBounds(850, 350, 150, 50);
+        finishButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                new CustomerPage();
+            }
+        });
         panel.add(label);
         panel.add(usdButton);
         panel.add(euroButton);
         panel.add(optionButton);
         panel.add(cnyButton);
+        panel.add(finishButton);
+
 
 
     }
