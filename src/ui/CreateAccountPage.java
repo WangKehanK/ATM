@@ -8,8 +8,11 @@ import manager.timer.TimerObserver;
 import manager.user.Consumer;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 public class CreateAccountPage implements IPages, TimerObserver {
 
@@ -24,7 +27,7 @@ public class CreateAccountPage implements IPages, TimerObserver {
         placePanelComponents(panel);
 
         frame.add(panel);
-        frame.setSize(400, 300);
+        frame.setSize(1000, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         frame.repaint();
@@ -44,11 +47,22 @@ public class CreateAccountPage implements IPages, TimerObserver {
 
 
         JLabel label = new JLabel("Create account.");
-        label.setBounds(120,20,160,25);
+        label.setBounds(120,20,160,50);
         panel.add(label);
 
+        Vector rateList=new Vector();
+        rateList.addElement("Day rate");
+        rateList.addElement("Month rate");
+        rateList.addElement("Year rate");
+        JList list=new JList(rateList);
+
+        JScrollPane scrollPane=new JScrollPane(list);
+        scrollPane.setBounds(400,100,200,50);;
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+
         JButton savingButton = new JButton("Saving Account");
-        savingButton.setBounds(100, 80, 160, 50);
+        savingButton.setBounds(100, 100, 160, 50);
         savingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -65,11 +79,14 @@ public class CreateAccountPage implements IPages, TimerObserver {
         panel.add(savingButton);
 
         JButton checkingButton = new JButton("Checking Account");
-        checkingButton.setBounds(100, 150, 160, 50);
+        checkingButton.setBounds(100, 200, 160, 50);
         checkingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int index=list.getSelectedIndex();
+
                 Result<Account> result =systemManager.createCheckingAccount();
+
                 if(result.isSuccess()){
                     frame.dispose();
                     new NewAccountPage(PickAccountPage.ACCOUT_TYPE.CHECKING);
@@ -81,8 +98,60 @@ public class CreateAccountPage implements IPages, TimerObserver {
         });
         panel.add(checkingButton);
 
-        JButton backButton = new JButton("back");
-        backButton.setBounds(100, 220, 160, 50);
+
+        JButton loanButton = new JButton("Loan Account");
+        loanButton.setBounds(100, 300, 160, 50);
+        loanButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = list.getSelectedIndex();
+
+                if(index==-1){
+                    JOptionPane.showMessageDialog(null,"Please select rate.","Error ",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                System.out.println(index);//0:day 1:month 2:year
+                Result<Account> result =systemManager.createLoanAccount(index);
+
+                if(result.isSuccess()){
+                    frame.dispose();
+                    JOptionPane.showMessageDialog(null,"Loan Account successfully created!.","Loan Account ",JOptionPane.PLAIN_MESSAGE);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"Loan Account existed!.","Error ",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        panel.add(loanButton);
+
+        JButton stockButton = new JButton("Stock Account");
+        stockButton.setBounds(100, 400, 160, 50);
+        stockButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = list.getSelectedIndex();
+
+                if(index==-1){
+                    JOptionPane.showMessageDialog(null,"Please select rate.","Error ",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                System.out.println(index);//0:day 1:month 2:year
+                Result<Account> result =systemManager.createLoanAccount(index);
+
+                if(result.isSuccess()){
+                    frame.dispose();
+                    JOptionPane.showMessageDialog(null,"Loan Account successfully created!.","Loan Account ",JOptionPane.PLAIN_MESSAGE);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"Loan Account existed!.","Error ",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+        panel.add(stockButton);
+
+
+        JButton backButton = new JButton("Back");
+        backButton.setBounds(100, 500, 160, 50);
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -91,9 +160,20 @@ public class CreateAccountPage implements IPages, TimerObserver {
 
             }
         });
+
+
+
+
+
+
+
+        panel.add(scrollPane);
         panel.add(backButton);
 
     }
+
+
+
 
     @Override
     public void timeChange() {

@@ -67,6 +67,7 @@ public class LoanPage implements IPages{
 
         JScrollPane scrollPane=new JScrollPane(list);
         scrollPane.setBounds(400,100,200,50);
+
         JButton LoanButton = new JButton("Loan");
         LoanButton.setBounds(850, 350, 150, 50);
         LoanButton.addActionListener(new ActionListener() {
@@ -74,7 +75,20 @@ public class LoanPage implements IPages{
             public void actionPerformed(ActionEvent e) {
                 int index=list.getSelectedIndex();// the index of collaterals
 
-                Result<Void> loaning = systemManager.loan(index);
+                if(index==-1){
+                    JOptionPane.showMessageDialog(null,"Please select an item!.","Error ",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                int typeid=-1;
+                while(typeid<0||typeid>3) {// the valid range of typeid!
+                    String s = JOptionPane.showInputDialog(panel, "Please input valid typeid", "Typeid", JOptionPane.PLAIN_MESSAGE);
+                    if(!s.equals("")){
+                        typeid=Integer.parseInt(s);
+                    }
+                }
+
+                Result<Void> loaning = systemManager.loan(typeid);
 
                 if(loaning.isSuccess()) {
                     nameList.remove(index);
