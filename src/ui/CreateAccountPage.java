@@ -129,22 +129,7 @@ public class CreateAccountPage implements IPages, TimerObserver {
         stockButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int index = list.getSelectedIndex();
-
-                if(index==-1){
-                    JOptionPane.showMessageDialog(null,"Please select rate.","Error ",JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                System.out.println(index);//0:day 1:month 2:year
-                Result<Account> result =systemManager.createLoanAccount(index);
-
-                if(result.isSuccess()){
-                    frame.dispose();
-                    JOptionPane.showMessageDialog(null,"Loan Account successfully created!.","Loan Account ",JOptionPane.PLAIN_MESSAGE);
-                }
-                else{
-                    JOptionPane.showMessageDialog(null,"Loan Account existed!.","Error ",JOptionPane.ERROR_MESSAGE);
-                }
+                new SecurityPickAccountPage();
             }
         });
         panel.add(stockButton);

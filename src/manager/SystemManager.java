@@ -11,6 +11,7 @@ import manager.user.Consumer;
 import manager.user.Manager;
 import manager.user.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.LongSummaryStatistics;
 import java.util.Map;
@@ -442,14 +443,17 @@ public class SystemManager {
         if(stockList == null || stockList.isEmpty()){
             return new Result<>(true, "stock is empty", null);
         }
-        return new Result<>(true, "success", stockList);
+        return new Result<>(true, "success", new ArrayList<>(stockList));
     }
 
     /**
-     * 修改股票列表，经理操作
+     * 添加股票列表，经理操作
      */
-    public Result<Void> updateStockList(String stockId, int price){
-        stockDao.updateStock(stockId, price);
+    public Result<Void> addStock(String stockId, String stockName, int price){
+        if(stockDao.getStockById(stockId) != null){
+            return new Result<>(false, "the stockId is exist!", null);
+        }
+        stockDao.addStock(stockId, stockName, price);
         return new Result<>(true, "success", null);
     }
 
@@ -461,6 +465,17 @@ public class SystemManager {
      */
     public Result<Void> saveStock(String stockId, int price){
         stockDao.updateStock(stockId, price);
+        return new Result<>(true, "success", null);
+    }
+
+    /**
+     * 删除股票，经理操作
+     * @param stockId
+     * @param price
+     * @return
+     */
+    public Result<Void> delStock(String stockId){
+        stockDao.delStock(stockId);
         return new Result<>(true, "success", null);
     }
 

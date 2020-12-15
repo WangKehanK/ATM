@@ -21,6 +21,12 @@ public class StockPage implements IPages{
 
     JFrame frame;
     SystemManager systemManager = SystemManager.getInstance();
+    List<Stock> stockList;
+
+    Vector priceList;
+    Vector nameList;
+    JList list;
+
     public StockPage(){
 
         frame = new JFrame("Welcome to the bank.");
@@ -38,21 +44,23 @@ public class StockPage implements IPages{
 
         panel.setLayout(null);
 
-        List<Stock> stockList = FileUtils.readStockList();
+        stockList = systemManager.getStockList().getData();
 
         JLabel priceLabel=new JLabel("Price:");
         priceLabel.setBounds(400,250,200,50);
+        JTextField priceText=new JTextField(20);
+        priceText.setBounds(400,300,200,50);
 
         JLabel label=new JLabel("Available collaterals");
         label.setBounds(400,30,200,25);
 
-        Vector priceList=new Vector();
-        Vector nameList=new Vector();
-        JList list=new JList(nameList);
+        priceList=new Vector();
+        nameList=new Vector();
+        list=new JList(nameList);
 
         for(int i = 0; i< stockList.size(); i++){
             priceList.addElement(stockList.get(i).getPrice());
-//            nameList.addElement(stockList.get(i).getName());
+            nameList.addElement(stockList.get(i).getStockName());
 
         }
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -60,7 +68,7 @@ public class StockPage implements IPages{
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 int index = list.getSelectedIndex();
-                priceLabel.setText("Price:"+priceList.get(index).toString());
+                priceText.setText(priceList.get(index).toString());
 
             }
         });
@@ -69,21 +77,35 @@ public class StockPage implements IPages{
 
 
         scrollPane.setBounds(400,100,200,50);
-        JButton editButton = new JButton("Edit");
-        editButton.setBounds(0, 250, 150, 50);
-        editButton.addActionListener(new ActionListener() {
+
+        JButton saveButton = new JButton("Save");
+        saveButton.setBounds(0, 250, 150, 50);
+        saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int index=list.getSelectedIndex();// the index of collaterals
-                if(true) {
-                    nameList.remove(index);
-                    priceList.remove(index);
-                    list.updateUI();
-                    priceLabel.setText("Price");
-                    JOptionPane.showMessageDialog(null,"Edit succeed!.","Edit Stock ",JOptionPane.PLAIN_MESSAGE);
+                Stock stock = stockList.get(index);
+                int price = Integer.parseInt(String.valueOf(priceText.getText()));
+                Result<Void> result = systemManager.saveStock(stock.getStockId(), price);
+
+                Result<List<Stock>> newStockList = systemManager.getStockList();
+                stockList.clear();
+                stockList.addAll(newStockList.getData());
+
+                priceList.clear();
+                nameList.clear();
+
+                System.out.println(stockList);
+                for(int i = 0; i< stockList.size(); i++){
+                    priceList.addElement(stockList.get(i).getPrice());
+                    nameList.addElement(stockList.get(i).getStockName());
+                }
+
+                if(result.isSuccess()){
+                    JOptionPane.showMessageDialog(null,"Saving succeed!.","Edit Stock ",JOptionPane.PLAIN_MESSAGE);
                 }
                 else{
-                    JOptionPane.showMessageDialog(null,"Edit Failed!.","Error ",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,result.getMsg(),"Error ",JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -93,20 +115,11 @@ public class StockPage implements IPages{
         scrollPane.setBounds(400,100,200,50);
         JButton addButton = new JButton("Add");
         addButton.setBounds(0, 350, 150, 50);
+        StockPage stockPage = this;
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int index=list.getSelectedIndex();// the index of collaterals
-                if(true) {
-                    nameList.remove(index);
-                    priceList.remove(index);
-                    list.updateUI();
-                    priceLabel.setText("Price");
-                    JOptionPane.showMessageDialog(null,"Add succeed!.","Add Stock ",JOptionPane.PLAIN_MESSAGE);
-                }
-                else{
-                    JOptionPane.showMessageDialog(null,"Add Failed!.","Error ",JOptionPane.ERROR_MESSAGE);
-                }
+                new StockAddPage(stockPage);
             }
         });
 
@@ -120,10 +133,10 @@ public class StockPage implements IPages{
             public void actionPerformed(ActionEvent e) {
                 int index=list.getSelectedIndex();// the index of collaterals
                 if(true) {
-                    nameList.remove(index);
-                    priceList.remove(index);
-                    list.updateUI();
-                    priceLabel.setText("Price");
+                    Stock stock = stockList.get(index);
+                    systemManager.delStock(stock.getStockId());
+                    updateList();
+                    priceText.setText("");
                     JOptionPane.showMessageDialog(null,"Delete succeed!.","Delete Stock ",JOptionPane.PLAIN_MESSAGE);
                 }
                 else{
@@ -146,9 +159,27 @@ public class StockPage implements IPages{
         panel.add(deleteButton);
         panel.add(label);
         panel.add(addButton);
-        panel.add(editButton);
+        panel.add(saveButton);
         panel.add(priceLabel);
         panel.add(backButton);
+        panel.add(priceText);
+    }
+
+    public void updateList(){
+        Result<List<Stock>> newStockList = systemManager.getStockList();
+        stockList.clear();
+        stockList.addAll(newStockList.getData());
+
+        priceList.clear();
+        nameList.clear();
+
+        System.out.println(stockList);
+        for(int i = 0; i< stockList.size(); i++){
+            priceList.addElement(stockList.get(i).getPrice());
+            nameList.addElement(stockList.get(i).getStockName());
+        }
+
+        list.updateUI();
     }
 
 

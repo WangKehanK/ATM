@@ -103,6 +103,16 @@ public class ManagerPage implements IPages, TimerObserver {
             }
         });
 
+        JButton stockButton = new JButton("stock");
+        stockButton.setBounds(0, 350, 150, 50);
+        stockButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                new StockPage();
+            }
+        });
+
 
 
         JButton logoutButton = new JButton("logout");
@@ -121,6 +131,7 @@ public class ManagerPage implements IPages, TimerObserver {
         panel.add(label);
         panel.add(dailyReportButton);
         panel.add(userListButton);
+        panel.add(stockButton);
         panel.add(logoutButton);
 
         panel.add(jTextArea);

@@ -37,7 +37,7 @@ public class LoanAccount  implements Account, TimerObserver {
         collateralList = new ArrayList<>();
         this.balance = 0;
         this.loan = 0;
-        this.accountId = accountDao.getNewAccountId();
+        this.accountId = getAccountDao().getNewAccountId();
         this.loanRateType = loanRateType;
         timer.addTimerObserver(this);
     }

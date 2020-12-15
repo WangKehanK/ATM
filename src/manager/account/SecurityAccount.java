@@ -39,7 +39,7 @@ public class SecurityAccount implements Account{
         this.userId = userId;
         stockMap = new HashMap<>();
         stockPurchaseMap = new HashMap<>();
-        this.accountId = accountDao.getNewAccountId();
+        this.accountId = getAccountDao().getNewAccountId();
 
     }
 

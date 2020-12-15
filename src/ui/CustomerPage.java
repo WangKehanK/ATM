@@ -112,6 +112,18 @@ public class CustomerPage implements IPages, TimerObserver {
                 new CreateAccountPage();
             }
         });
+
+
+        JButton stockButton = new JButton("Stock");
+        stockButton.setBounds(0, 450, 150, 50);
+        stockButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Customer Login
+                frame.dispose();
+                new StockAccountPage();
+            }
+        });
         //panel.add(createButton);
 
         JButton withdrawButton = new JButton("Withdraw");
@@ -145,6 +157,7 @@ public class CustomerPage implements IPages, TimerObserver {
         panel.add(saveButton);
         panel.add(createButton);
         panel.add(withdrawButton);
+        panel.add(stockButton);
         panel.add(logoutButton);
 
     }

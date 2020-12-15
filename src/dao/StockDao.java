@@ -46,4 +46,21 @@ public class StockDao {
     public List<Stock> getStockList() {
         return stockList;
     }
+
+    public void addStock(String stockId, String stockName, int price) {
+        Stock stock = new Stock(stockId, stockName, price);
+        stockList.add(stock);
+
+        FileUtils.saveStockList(stockList);
+    }
+
+    public void delStock(String stockId) {
+        Stock stock = getStockById(stockId);
+
+        if(stock != null){
+            stockList.remove(stock);
+
+            FileUtils.saveStockList(stockList);
+        }
+    }
 }

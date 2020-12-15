@@ -1,6 +1,9 @@
 package ui;
 
+import dao.AccountDao;
+import dao.LoanDao;
 import manager.SystemManager;
+import manager.account.AccountType;
 import manager.entity.Collateral;
 import manager.entity.Result;
 import manager.timer.Timer;
@@ -37,7 +40,14 @@ public class LoanPage implements IPages{
 
         panel.setLayout(null);
 
-        final List<Collateral>[] collateralList = new List[]{FileUtils.readCollateralList()};
+        if(systemManager.getCurrentUser().hasLoanAccount()){
+            systemManager.chooseAccount(AccountType.LOAN.getAccountType());
+        }else{
+            //TODO:这块最好是可以选择贷款利率的
+            systemManager.createLoanAccount(LoanDao.DAY_RATE);
+        }
+
+        final List<Collateral> collateralList = SystemManager.getInstance().getCollateralList().getData();
 
         JLabel priceLabel=new JLabel("Price:");
         priceLabel.setBounds(400,250,200,50);
@@ -49,9 +59,12 @@ public class LoanPage implements IPages{
         Vector nameList=new Vector();
         JList list=new JList(nameList);
 
-        for(int i = 0; i< collateralList[0].size(); i++){
-            priceList.addElement(collateralList[0].get(i).getPrice());
-            nameList.addElement(collateralList[0].get(i).getName());
+        JTextField type = new JTextField();
+
+
+        for(int i = 0; i< collateralList.size(); i++){
+            priceList.addElement(collateralList.get(i).getPrice());
+            nameList.addElement(collateralList.get(i).getName());
 
         }
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -60,6 +73,7 @@ public class LoanPage implements IPages{
             public void valueChanged(ListSelectionEvent e) {
                 int index = list.getSelectedIndex();
                 priceLabel.setText("Price:"+priceList.get(index).toString());
+                type.setText(collateralList.get(index).getType()+"");
 
             }
         });
@@ -80,15 +94,16 @@ public class LoanPage implements IPages{
                     return;
                 }
 
-                int typeid=-1;
-                while(typeid<0||typeid>3) {// the valid range of typeid!
-                    String s = JOptionPane.showInputDialog(panel, "Please input valid typeid", "Typeid", JOptionPane.PLAIN_MESSAGE);
-                    if(!s.equals("")){
-                        typeid=Integer.parseInt(s);
-                    }
-                }
+//                int typeid=-1;
+//                while(typeid<0||typeid>3) {// the valid range of typeid!
+//                    String s = JOptionPane.showInputDialog(panel, "Please input valid typeid", "Typeid", JOptionPane.PLAIN_MESSAGE);
+//                    if(!s.equals("")){
+//                        typeid=Integer.parseInt(s);
+//                    }
+//                }
+                int typeId = Integer.parseInt(String.valueOf(type.getText()));
 
-                Result<Void> loaning = systemManager.loan(typeid);
+                Result<Void> loaning = systemManager.loan(typeId);
 
                 if(loaning.isSuccess()) {
                     nameList.remove(index);
@@ -98,7 +113,7 @@ public class LoanPage implements IPages{
                     JOptionPane.showMessageDialog(null,"Loan succeed!.","Error ",JOptionPane.PLAIN_MESSAGE);
                 }
                 else{
-                    JOptionPane.showMessageDialog(null,"Loan Failed!.","Error ",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,loaning.getMsg(),"Error ",JOptionPane.ERROR_MESSAGE);
                 }
 
             }
