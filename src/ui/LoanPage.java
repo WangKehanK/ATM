@@ -90,10 +90,21 @@ public class LoanPage implements IPages{
             }
         });
 
+        JButton backButton = new JButton("Back");
+        backButton.setBounds(850, 450, 150, 50);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                new CustomerPage();
+            }
+        });
+
         panel.add(scrollPane);
         panel.add(LoanButton);
         panel.add(label);
         panel.add(priceLabel);
+        panel.add(backButton);
     }
 
 
