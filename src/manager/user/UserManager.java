@@ -4,7 +4,7 @@ import dao.UserDao;
 import manager.entity.Result;
 
 /**
- * 接受ui关于用户相关的请求
+ * Accept user-related requests from UI
  */
 public class UserManager {
     private static UserManager userManager = new UserManager();

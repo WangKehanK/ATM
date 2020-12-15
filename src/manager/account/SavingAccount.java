@@ -172,7 +172,7 @@ public class SavingAccount implements Account, TimerObserver {
 
     @Override
     public void timeChange() {
-        //账户金额更新
+        //Account amount update
         Calendar calendar = timer.getCalendar();
         if(rateType == AccountDao.DAY_RATE && calendar.get(Calendar.HOUR) == 0){
             for(int key : balanceMap.keySet()){

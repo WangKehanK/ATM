@@ -45,7 +45,7 @@ public class SystemManager {
     }
 
     /**
-     * 客户登陆
+     * consumerLogin
      * @param userName
      * @param password
      * @return
@@ -65,7 +65,7 @@ public class SystemManager {
 
 
     /**
-     * 经理登陆
+     * managerLogin
      * @param userName
      * @param password
      * @return
@@ -85,7 +85,7 @@ public class SystemManager {
 
 
     /**
-     * 用户登出
+     * logout
      * @return
      */
     public Result<Void> logout(){
@@ -96,7 +96,7 @@ public class SystemManager {
 
 
     /**
-     * 注册客户账号
+     * registerConsumer
      * @param userName
      * @param password
      * @return
@@ -112,7 +112,7 @@ public class SystemManager {
 
     /**
      *
-     * 获取客户的账户列表
+     * get User Account
      *
      * @return
      */
@@ -126,7 +126,7 @@ public class SystemManager {
     }
 
     /**
-     * 选择某一个账户
+     * choose Account
      * @param accountType
      * @return
      */
@@ -166,7 +166,7 @@ public class SystemManager {
     }
 
     /**
-     * 存钱
+     * save money
      * @param money
      * @return
      */
@@ -184,7 +184,7 @@ public class SystemManager {
     }
 
     /**
-     * 取钱
+     * withdraw money
      * @param money
      * @return
      */
@@ -206,7 +206,7 @@ public class SystemManager {
     }
 
     /**
-     * 创建saving 账户
+     * create Saving Account
      * @return
      */
     public Result<Account> createSavingAccount(){
@@ -224,7 +224,7 @@ public class SystemManager {
     }
 
     /**
-     * 创建checking 账户
+     * create Checking Account
      * @return
      */
     public Result<Account> createCheckingAccount(){
@@ -242,7 +242,7 @@ public class SystemManager {
     }
 
     /**
-     * 创建Loan账户
+     * create Loan Account
      * @return
      */
     public Result<Account> createLoanAccount(int loanRateType){
@@ -260,7 +260,7 @@ public class SystemManager {
     }
 
     /**
-     * 创建证券账户
+     * create Security Account
      * @return
      */
     public Result<Account> createSecurityAccount(){
@@ -277,10 +277,10 @@ public class SystemManager {
         }
     }
 
-    //TODO:每次操作添加日志
+    //TODO:Add log for each operation
 
     /**
-     * 获取操作日志
+     * Get operation log
      * @return
      */
     public Result<Map<String, List<Log>>> getLog(){
@@ -294,7 +294,7 @@ public class SystemManager {
 
 
     /**
-     * 获取当前的客户列表
+     * Get the current customer list
      * @return
      */
     public Result<List<Consumer>> getConsumers(){
@@ -315,7 +315,7 @@ public class SystemManager {
     }
 
     /**
-     * 选择一种货币类型
+     * Choose a currency type
      * @param type
      * @return
      */
@@ -332,7 +332,7 @@ public class SystemManager {
     }
 
     /**
-     * 获取当前账户的信息
+     * Get current account information
      * @return
      */
     public Result<Account> getCurrentAccountInfo(){
@@ -344,7 +344,7 @@ public class SystemManager {
 
 
     /**
-     * 获取当前客户的信息
+     * Get current customer information
      * @return
      */
     public Result<User> getCurrentUserInfo(){
@@ -355,7 +355,7 @@ public class SystemManager {
     }
 
     /**
-     * 给指定账户转账
+     * Transfer to designated account
      * @param userName
      * @param accountNo
      * @param transferMoney
@@ -386,7 +386,7 @@ public class SystemManager {
     }
 
     /**
-     * 获取抵押物的列表
+     * Get a list of collateral
      * @return
      */
     public Result<List<Collateral>> getCollateralList(){
@@ -396,13 +396,13 @@ public class SystemManager {
     }
 
     /**
-     * 贷款，用指定的抵押物
+     * Loan with designated collateral
      *
      * @param loanType
      * @return
      */
     public Result<Void> loan(int loanType){
-        //当前账号是贷款账户
+        //The current account is a loan account
         if(!(currentAccount instanceof LoanAccount)){
             return new Result<>(false, "current account is not a loanAccount", null);
         }
@@ -417,7 +417,7 @@ public class SystemManager {
     }
 
     /**
-     * 货币转化
+     * Currency conversion
      * @param currencyType
      * @param toCurrencyType
      * @param money
@@ -434,7 +434,7 @@ public class SystemManager {
     }
 
     /**
-     * 获取股票列表
+     * Get stock list
      * @return
      */
     public Result<List<Stock>> getStockList(){
@@ -447,7 +447,7 @@ public class SystemManager {
     }
 
     /**
-     * 添加股票列表，经理操作
+     * Add stock list, manager operation
      */
     public Result<Void> addStock(String stockId, String stockName, int price){
         if(stockDao.getStockById(stockId) != null){
@@ -458,7 +458,7 @@ public class SystemManager {
     }
 
     /**
-     * 保存股票，经理操作
+     * Save stock, manager operation
      * @param stockId
      * @param price
      * @return
@@ -469,7 +469,7 @@ public class SystemManager {
     }
 
     /**
-     * 删除股票，经理操作
+     * Delete stock, manager operation
      * @param stockId
      * @param price
      * @return
@@ -480,7 +480,7 @@ public class SystemManager {
     }
 
     /**
-     * 获取当前账号的股票列表
+     * Get the stock list of the current account
      * @return
      */
     public Result<Map<Stock, Integer>> getAccountStockList(){
@@ -493,7 +493,7 @@ public class SystemManager {
     }
 
     /**
-     * 购买股票
+     * Buy stock
      * @param stockId
      * @param stockAmount
      * @return
@@ -514,7 +514,7 @@ public class SystemManager {
     }
 
     /**
-     * 卖股票
+     * Sell stocks
      * @param stockId
      * @param stockAmount
      * @return

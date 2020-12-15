@@ -7,7 +7,7 @@ import utils.FileUtils;
 import java.util.List;
 
 /**
- * 单例，操作user相关的数据操作
+ * Operate user-related data operations
  */
 public class UserDao {
     private int maxId;

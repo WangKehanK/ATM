@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 顾客
+ * Consumer
  */
 public class Consumer extends AbstractUser {
     private String consumerId;
@@ -45,7 +45,7 @@ public class Consumer extends AbstractUser {
     }
 
     /**
-     * 恢复用户的account信息
+     * Restore user account information
      */
     private void reloadAccountList() {
         List<Account> dbAccountList = accountDao.getUserAccount(consumerId);

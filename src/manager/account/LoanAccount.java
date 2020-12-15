@@ -14,7 +14,7 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * 关于贷款的账户
+ * Loan account
  */
 public class LoanAccount  implements Account, TimerObserver {
     private String accountId;
@@ -119,7 +119,7 @@ public class LoanAccount  implements Account, TimerObserver {
 
     @Override
     public String getStr() {
-        //需要name，type，rate
+        //Need name, type, rate
         String str = "";
         str += balance;
         str += "|";
@@ -141,8 +141,8 @@ public class LoanAccount  implements Account, TimerObserver {
 
     @Override
     public void timeChange() {
-        //贷款需还款金额的更新
-        //TODO:收入多少钱没有统计
+        //Update of loan repayment amount
+        //TODO:There is no statistics on how much you earn
         Calendar calendar = timer.getCalendar();
         if(loanRateType == LoanDao.DAY_RATE && calendar.get(Calendar.HOUR) == 0){
             loan = (int) (loan * (1 + loanDao.getLoanRate(loanRateType)));

@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 关于证券的账户
- * 保存购买时的证券金额
- * 计算赚了多少钱
+ * Securities accounts
+ * Save the security amount at the time of purchase
+ * Calculate how much money you made
  */
 public class SecurityAccount implements Account{
 

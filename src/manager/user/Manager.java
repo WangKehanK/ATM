@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 经理类
+ * Manager class
  */
 public class Manager extends AbstractUser {
     private LogDao logDao = LogDao.getInstance();

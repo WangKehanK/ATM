@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 单例，操作account相关的数据操作
+ * operating account-related data operations
  */
 public class AccountDao {
 

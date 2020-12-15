@@ -5,7 +5,7 @@ import manager.account.*;
 import java.util.List;
 
 /**
- * 用户抽象类
+ * User abstract class
  */
 public interface User {
 

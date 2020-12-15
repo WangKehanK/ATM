@@ -2,7 +2,7 @@ package manager.account;
 import utils.ConfigUtils;
 
 /**
- * Account的接口
+ * Account interface
  */
 public interface Account {
     int USD = 1;

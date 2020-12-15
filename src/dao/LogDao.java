@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 存放关于用户操作的日志数据操作
+ * Store log data operations about user operations
  */
 public class LogDao {
 
@@ -16,7 +16,7 @@ public class LogDao {
 
 
     /**
-     * 按用户区分的操作记录
+     * Operation record by user
      */
     private Map<String, List<Log>> logMap;
 

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.logging.SimpleFormatter;
 import utils.ConfigUtils;
 /**
- * 时间类，用来计算时间
+ * Time class, used to calculate time
  */
 public class Timer implements Runnable{
 
@@ -44,7 +44,7 @@ public class Timer implements Runnable{
     @Override
     public void run() {
         while(true){
-            //10S = 1小时
+            //10 s = 1 hr
             try {
                 Thread.sleep(60 * 1000);
             } catch (InterruptedException e) {

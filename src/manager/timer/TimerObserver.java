@@ -1,7 +1,7 @@
 package manager.timer;
 
 /**
- * 时间观察者，ui需要，需要利息的Account需要
+ * time observer for ui and account needs interest
  */
 public interface TimerObserver {
     void timeChange();

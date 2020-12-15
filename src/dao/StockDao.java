@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 单例，操作stock相关的数据操作
+ * operating stock-related data operations
  */
 public class StockDao {
     private List<Stock> stockList;
