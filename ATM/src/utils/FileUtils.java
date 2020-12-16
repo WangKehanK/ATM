@@ -140,7 +140,7 @@ public class FileUtils {
                     for(String stock : stockArr){
                         String[] stockInfoArr = stock.split(":");
                         Stock stockInfo = StockDao.getInstance().getStockById(stockInfoArr[0]);
-                        String[] numberArr = stockInfoArr[1].split("\\$");
+                        String[] numberArr = stockInfoArr[1].split("$");
                         stockMap.put(stockInfo, Integer.parseInt(numberArr[0]));
                         stockPurchaseMap.put(stockInfo, Integer.parseInt(numberArr[1]));
                     }

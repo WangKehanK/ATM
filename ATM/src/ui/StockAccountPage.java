@@ -2,8 +2,6 @@ package ui;
 
 import manager.SystemManager;
 import manager.account.AccountType;
-import manager.account.SecurityAccount;
-import manager.entity.Result;
 import manager.entity.Stock;
 
 import javax.swing.*;
@@ -12,7 +10,6 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 
 /**
@@ -41,34 +38,25 @@ public class StockAccountPage implements IPages{
 
 
         systemManager.chooseAccount(AccountType.SECURITY.getAccountType());
-        SecurityAccount securityAccount = (SecurityAccount) systemManager.getCurrentAccount();
 
         panel.setLayout(null);
 
-
-        JTextArea jTextArea = new JTextArea();
-        jTextArea.setBounds(200,350, 500,200);
-//        JScrollPane jScrollPane=new JScrollPane(jTextArea);
-//        jScrollPane.setBounds(200,350, 500,200);
-//        panel.add(jScrollPane);
-
-        jTextArea.setText(securityAccount.getStockList());
         List<Stock> stockList = systemManager.getStockList().getData();
 
         JLabel balance=new JLabel("balance:");
-        balance.setBounds(400,100,200,50);
+        balance.setBounds(400,200,200,50);
         panel.add(balance);
 
         balance.setText("balance:" + systemManager.getCurrentAccount().getBalance());
 
         JLabel priceLabel=new JLabel("Price:");
-        priceLabel.setBounds(400,150,200,50);
+        priceLabel.setBounds(400,250,200,50);
 
 
         JLabel amountLabel=new JLabel("Amount:");
-        amountLabel.setBounds(400,200,200,50);
+        amountLabel.setBounds(400,300,200,50);
         JTextField amountText=new JTextField(20);
-        amountText.setBounds(400,250,200,50);
+        amountText.setBounds(400,350,200,50);
 
         JLabel label=new JLabel("Available collaterals");
         label.setBounds(400,30,200,25);
@@ -87,9 +75,7 @@ public class StockAccountPage implements IPages{
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 int index = list.getSelectedIndex();
-                if(index != -1){
-                    priceLabel.setText("Price:"+priceList.get(index).toString());
-                }
+                priceLabel.setText("Price:"+priceList.get(index).toString());
 
             }
         });
@@ -97,7 +83,7 @@ public class StockAccountPage implements IPages{
         JScrollPane scrollPane=new JScrollPane(list);
 
 
-        scrollPane.setBounds(400,50,200,50);
+        scrollPane.setBounds(400,100,200,50);
 
 
         JButton purchaseButton = new JButton("purchase");
@@ -106,22 +92,15 @@ public class StockAccountPage implements IPages{
             @Override
             public void actionPerformed(ActionEvent e) {
                 int index=list.getSelectedIndex();// the index of collaterals
-                if(index < 0){
-                    JOptionPane.showMessageDialog(null,"please choose a stock","Error ",JOptionPane.PLAIN_MESSAGE);
-                    return;
-                }
-                int amount = Integer.parseInt(amountText.getText());
-                String stockId = stockList.get(index).getStockId();
-                Result<Map<Stock, Integer>> mapResult = systemManager.purchasingStock(stockId, amount);
-                if(mapResult.isSuccess()) {
-                    list.clearSelection();
+                if(true) {
+                    nameList.remove(index);
+                    priceList.remove(index);
+                    list.updateUI();
                     priceLabel.setText("Price");
-                    jTextArea.setText(securityAccount.getStockList());
-                    balance.setText("balance:" + systemManager.getCurrentAccount().getBalance());
-                    JOptionPane.showMessageDialog(null,"purchase succeed!.","Edit Stock ",JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Edit succeed!.","Edit Stock ",JOptionPane.PLAIN_MESSAGE);
                 }
                 else{
-                    JOptionPane.showMessageDialog(null,"purchase Failed!.","Error ",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Edit Failed!.","Error ",JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -133,22 +112,15 @@ public class StockAccountPage implements IPages{
             @Override
             public void actionPerformed(ActionEvent e) {
                 int index=list.getSelectedIndex();// the index of collaterals
-                if(index < 0){
-                    JOptionPane.showMessageDialog(null,"please choose a stock","Error ",JOptionPane.PLAIN_MESSAGE);
-                    return;
-                }
-                int amount = Integer.parseInt(amountText.getText());
-                String stockId = stockList.get(index).getStockId();
-                Result<Map<Stock, Integer>> mapResult = systemManager.sellStock(stockId, amount);
-                if(mapResult.isSuccess()) {
-                    list.clearSelection();
+                if(true) {
+                    nameList.remove(index);
+                    priceList.remove(index);
+                    list.updateUI();
                     priceLabel.setText("Price");
-                    jTextArea.setText(securityAccount.getStockList());
-                    balance.setText("balance:" + systemManager.getCurrentAccount().getBalance());
-                    JOptionPane.showMessageDialog(null,"sell succeed!.","Stock ",JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Add succeed!.","Add Stock ",JOptionPane.PLAIN_MESSAGE);
                 }
                 else{
-                    JOptionPane.showMessageDialog(null,"sell Failed!.","Error ",JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Add Failed!.","Error ",JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -163,8 +135,6 @@ public class StockAccountPage implements IPages{
             }
         });
 
-
-
         panel.add(scrollPane);
         panel.add(label);
         panel.add(sellButton);
@@ -173,7 +143,6 @@ public class StockAccountPage implements IPages{
         panel.add(amountLabel);
         panel.add(amountText);
         panel.add(backButton);
-        panel.add(jTextArea);
     }
 
 

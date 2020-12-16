@@ -236,17 +236,4 @@ public class SecurityAccount implements Account{
         }
         return profitMap;
     }
-
-    public String getStockList() {
-        String str = "my Stock list";
-        str += System.lineSeparator();
-        Map<Stock, List<Integer>> stockProfitInfo = getStockProfitInfo();
-        for(Map.Entry<Stock, List<Integer>> entry: stockProfitInfo.entrySet()){
-            str += ("--------" + entry.getKey().getStockName() + "-------" + System.lineSeparator());
-            str += ("current price " + entry.getKey().getPrice() + System.lineSeparator());
-            str += ("current amount " + entry.getValue().get(0) + System.lineSeparator());
-            str += ("purchase money " + entry.getValue().get(1) + System.lineSeparator());
-        }
-        return str;
-    }
 }
