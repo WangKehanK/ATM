@@ -1,6 +1,6 @@
 package ui;
 
-import dao.AccountDao;
+
 import manager.SystemManager;
 import manager.account.Account;
 import manager.account.AccountType;
@@ -12,6 +12,7 @@ import manager.user.Consumer;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 /**
  * This file is for SecurityPickAccountPage class that implements IPages interface and timer observer
@@ -37,12 +38,12 @@ public class SecurityPickAccountPage implements IPages, TimerObserver {
         frame.setVisible(true);
 
         this.currencyType = Account.USD;
-        manager.timer.Timer.getInstance().addTimerObserver(this);
+        Timer.getInstance().addTimerObserver(this);
     }
 
     @Override
     public void timeChange() {
-        time.setText(manager.timer.Timer.getInstance().getTimeStr());
+        time.setText(Timer.getInstance().getTimeStr());
     }
 
 
@@ -53,34 +54,61 @@ public class SecurityPickAccountPage implements IPages, TimerObserver {
         time.setBounds(0,0,160,25);
         panel.add(time);
 
-        JTextField accountType = new JTextField();
 
+        Vector currencyList=new Vector();
+        currencyList.addElement("USD");
+        currencyList.addElement("EURO");
+        currencyList.addElement("CNY");
+
+        JList list=new JList(currencyList);
+
+        JScrollPane scrollPane=new JScrollPane(list);
+        scrollPane.setBounds(350,200,100,50);
+
+        JTextField textField=new JTextField();
+        textField.setBounds(500,200,100,50);
 
 
         JLabel label = new JLabel("Please pick your account to transfer to security Account");
-        label.setBounds(120,20,1600,25);
-        panel.add(label);
+        label.setBounds(200,200,300,50);
+
 
         JLabel balanceLabel = new JLabel(((Consumer)systemManager.getCurrentUser()).getBalance());
         balanceLabel.setBounds(120,80,1600,25);
         panel.add(balanceLabel);
 
         JButton savingButton = new JButton("Saving Account");
-        savingButton.setBounds(100, 120, 160, 50);
+        savingButton.setBounds(100, 150, 160, 50);
         savingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                accountType.setText(AccountType.SAVING.getAccountType() + "");
+                int index=list.getSelectedIndex();
+                Result<Account> result = systemManager.createSecurityAccount(AccountType.SAVING.getAccountType(), Integer.parseInt(textField.getText()), index + 1);
+                if(result.isSuccess()){
+                    JOptionPane.showMessageDialog(null,"create succeed!.","create Account ",JOptionPane.PLAIN_MESSAGE);
+                    frame.dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,result.getMsg(),"Error ",JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         panel.add(savingButton);
 
         JButton checkingButton = new JButton("Checking Account");
-        checkingButton.setBounds(100, 190, 160, 50);
+        checkingButton.setBounds(100, 200, 160, 50);
         checkingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                accountType.setText(AccountType.CHECKING.getAccountType() + "");
+                int index=list.getSelectedIndex();
+                Result<Account> result = systemManager.createSecurityAccount(AccountType.SAVING.getAccountType(), Integer.parseInt(textField.getText()), index + 1);
+                if(result.isSuccess()){
+                    JOptionPane.showMessageDialog(null,"create succeed!.","create Account ",JOptionPane.PLAIN_MESSAGE);
+                    frame.dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,result.getMsg(),"Error ",JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         panel.add(checkingButton);
@@ -92,58 +120,19 @@ public class SecurityPickAccountPage implements IPages, TimerObserver {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                new CreateAccountPage();
 
             }
         });
         panel.add(backButton);
 
-        JLabel type = new JLabel("USD");
-        type.setBounds(300,120,80,25);
-        panel.add(type);
-
-
-        JButton usdButton = new JButton("USD");
-        usdButton.setBounds(300, 150, 150, 50);
-        usdButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                type.setText("USD");
-                currencyType = Account.USD;
-            }
-        });
-
-        panel.add(usdButton);
 
 
 
-        JButton euroButton = new JButton("EURO");
-        euroButton.setBounds(150, 250, 150, 50);
-        euroButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-                type.setText("EURO");
-                currencyType = Account.EURO;
-            }
-        });
+        panel.add(scrollPane);
+        panel.add(textField);
 
-        panel.add(euroButton);
-
-
-        JButton cnyButton = new JButton("CNY");
-        cnyButton.setBounds(150, 350, 150, 50);
-        cnyButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                type.setText("CNY");
-                currencyType = Account.CNY;
-            }
-
-        });
-
-        panel.add(cnyButton);
 
     }
 

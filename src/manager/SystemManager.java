@@ -13,7 +13,6 @@ import manager.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.LongSummaryStatistics;
 import java.util.Map;
 
 /**
@@ -214,11 +213,11 @@ public class SystemManager {
      * create Saving Account
      * @return
      */
-    public Result<Account> createSavingAccount(){
+    public Result<Account> createSavingAccount(int savingRateType){
         if(currentUser.hasSavingAccount()){
             return new Result<>(false, "User has Saving account", null);
         }else{
-            SavingAccount savingAccount = currentUser.createSavingAccount();
+            SavingAccount savingAccount = currentUser.createSavingAccount(savingRateType);
             if(savingAccount != null){
                 currentAccount = savingAccount;
                 return new Result<>(true, "success", savingAccount);
@@ -267,12 +266,40 @@ public class SystemManager {
     /**
      * create Security Account
      * @return
+     * @param accountType
+     * @param money
+     * @param type
      */
-    public Result<Account> createSecurityAccount(){
+    public Result<Account> createSecurityAccount(int accountType, int money, int type){
+        if(accountType == AccountType.SAVING.getAccountType() ){
+            if(currentUser.hasSavingAccount()){
+                int balance = currentUser.getSavingAccount().getBalance(type);
+                if(balance < money){
+                    return new Result<>(false, "Saving account has no enough money", null);
+                }
+            }else{
+                return new Result<>(false, "Saving account is not exist", null);
+            }
+        }
+        if(accountType == AccountType.CHECKING.getAccountType() ){
+            if(currentUser.hasCheckingAccount()){
+                int balance = currentUser.getCheckingAccount().getBalance(type);
+                if(balance < money){
+                    return new Result<>(false, "Checking account has no enough money", null);
+                }
+            }else{
+                return new Result<>(false, "Checking account is not exist", null);
+            }
+        }
+
+        if(accountType !=  AccountType.CHECKING.getAccountType()&& accountType !=  AccountType.SAVING.getAccountType()){
+            return new Result<>(false, " Account type error", null);
+        }
+
         if(currentUser.hasSecurityAccount()){
             return new Result<>(false, "User has Security account", null);
         }else{
-            SecurityAccount securityAccount = currentUser.createSecurityAccount();
+            SecurityAccount securityAccount = currentUser.createSecurityAccount(accountType, money, type);
             if(securityAccount != null){
                 currentAccount = securityAccount;
                 return new Result<>(true, "success", securityAccount);
@@ -417,7 +444,7 @@ public class SystemManager {
             currentAccount.fee(1);
             return new Result<>(true,"loan success",null);
         }else{
-            return new Result<>(false,"loan fail",null);
+            return new Result<>(false,"loan fail or type is exist",null);
         }
     }
 
@@ -476,7 +503,6 @@ public class SystemManager {
     /**
      * Delete stock, manager operation
      * @param stockId
-     * @param price
      * @return
      */
     public Result<Void> delStock(String stockId){
@@ -541,6 +567,11 @@ public class SystemManager {
 
     public User getCurrentUser() {
         return currentUser;
+    }
+
+
+    public Account getCurrentAccount(){
+        return currentAccount;
     }
 
 }

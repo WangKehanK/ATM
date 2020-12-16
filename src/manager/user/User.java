@@ -21,13 +21,13 @@ public interface User {
 
     boolean hasSavingAccount();
 
-    SavingAccount createSavingAccount();
+    SavingAccount createSavingAccount(int savingRateType);
 
     CheckingAccount createCheckingAccount();
 
     LoanAccount createLoanAccount(int loanRateType);
 
-    SecurityAccount createSecurityAccount();
+    SecurityAccount createSecurityAccount(int accountType, int money, int type);
 
     Account searchAccountByNo(String accountNo);
 

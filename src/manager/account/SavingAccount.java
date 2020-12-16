@@ -272,4 +272,9 @@ public class SavingAccount implements Account, TimerObserver {
         getAccountDao().updateAccount(this);
         return true;
     }
+
+    @Override
+    public int getBalance(int type) {
+        return balanceMap.get(type);
+    }
 }

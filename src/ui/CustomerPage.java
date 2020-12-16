@@ -77,8 +77,13 @@ public class CustomerPage implements IPages, TimerObserver {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Customer Login
-                frame.dispose();
-                new LoanPage();
+                if(!systemManager.getCurrentUser().hasLoanAccount()) {
+                    JOptionPane.showMessageDialog(null,"No existed loan account.","Error ",JOptionPane.ERROR_MESSAGE);
+                }else{
+
+                    frame.dispose();
+                    new LoanPage();
+                }
 
             }
         });
@@ -126,8 +131,12 @@ public class CustomerPage implements IPages, TimerObserver {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Customer Login
-                frame.dispose();
-                new StockAccountPage();
+                if(!systemManager.getCurrentUser().hasSecurityAccount()){
+                    JOptionPane.showMessageDialog(null,"No existed security account.","Error ",JOptionPane.ERROR_MESSAGE);
+                }else{
+                    frame.dispose();
+                    new StockAccountPage();
+                }
             }
         });
         //panel.add(createButton);

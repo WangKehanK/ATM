@@ -119,31 +119,35 @@ public class FileUtils {
                 int loan = Integer.parseInt(loanArr[1]);
                 int loanRateType = Integer.parseInt(loanArr[2]);
                 LoanAccount loanAccount = new LoanAccount(accountId,userId , balance, loan, loanRateType);
-                String[] collateralArr = loanArr[3].split(",");
                 List<Integer> list = new ArrayList<>();
-                for(String type : collateralArr){
-                    list.add(Integer.parseInt(type));
-                }
+                if(loanArr.length > 3 ){
+                    String[] collateralArr = loanArr[3].split(",");
+                    for(String type : collateralArr){
+                        list.add(Integer.parseInt(type));
+                    }
 
+                }
                 loanAccount.reloadLoan(list);
                 account = loanAccount;
             }else if(accountType == AccountType.SECURITY.getAccountType()){
                 String[] securityArr = str.split("\\|");
                 int balance = Integer.parseInt(securityArr[0]);
                 SecurityAccount securityAccount = new SecurityAccount(accountId,userId , balance);
-                String[] stockArr = securityArr[1].split(",");
-                Map<Stock, Integer> stockMap = new HashMap<>();
-                Map<Stock, Integer> stockPurchaseMap = new HashMap<>();
-                for(String stock : stockArr){
-                    String[] stockInfoArr = stock.split(":");
-                    Stock stockInfo = StockDao.getInstance().getStockById(stockInfoArr[0]);
-                    String[] numberArr = stockInfoArr[1].split("$");
-                    stockMap.put(stockInfo, Integer.parseInt(numberArr[0]));
-                    stockPurchaseMap.put(stockInfo, Integer.parseInt(numberArr[1]));
-                }
+                if(securityArr.length > 1){
+                    String[] stockArr = securityArr[1].split(",");
+                    Map<Stock, Integer> stockMap = new HashMap<>();
+                    Map<Stock, Integer> stockPurchaseMap = new HashMap<>();
+                    for(String stock : stockArr){
+                        String[] stockInfoArr = stock.split(":");
+                        Stock stockInfo = StockDao.getInstance().getStockById(stockInfoArr[0]);
+                        String[] numberArr = stockInfoArr[1].split("$");
+                        stockMap.put(stockInfo, Integer.parseInt(numberArr[0]));
+                        stockPurchaseMap.put(stockInfo, Integer.parseInt(numberArr[1]));
+                    }
 
-                securityAccount.setStockMap(stockMap);
-                securityAccount.setStockPurchaseMap(stockPurchaseMap);
+                    securityAccount.setStockMap(stockMap);
+                    securityAccount.setStockPurchaseMap(stockPurchaseMap);
+                }
 
                 account = securityAccount;
 

@@ -41,4 +41,6 @@ public interface Account {
     boolean draw(int transferMoney, int currencyType);
 
     boolean saving(int transferMoney, int currencyType);
+
+    int getBalance(int type);
 }

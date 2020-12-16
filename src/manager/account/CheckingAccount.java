@@ -228,4 +228,9 @@ public class CheckingAccount implements Account{
         getAccountDao().updateAccount(this);
         return true;
     }
+
+    @Override
+    public int getBalance(int type) {
+        return balanceMap.get(type);
+    }
 }

@@ -209,7 +209,19 @@ public class SecurityAccount implements Account{
 
     @Override
     public boolean saving(int transferMoney, int currencyType) {
-        return false;
+        if(currencyType == USD){
+            balance = transferMoney;
+        }else if(currencyType == EURO){
+            balance = (int) (transferMoney * EURO_2_USD);
+        }else if(currencyType == CNY){
+            balance = (int) (transferMoney * CNY_2_USD);
+        }
+        return true;
+    }
+
+    @Override
+    public int getBalance(int type) {
+        return 0;
     }
 
     public Map<Stock, List<Integer>> getStockProfitInfo() {

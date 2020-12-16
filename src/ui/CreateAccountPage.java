@@ -70,7 +70,14 @@ public class CreateAccountPage implements IPages, TimerObserver {
         savingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Result<Account> result =systemManager.createSavingAccount();
+
+                int index = list.getSelectedIndex();
+
+                if(index==-1){
+                    JOptionPane.showMessageDialog(null,"Please select rate.","Error ",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                Result<Account> result =systemManager.createSavingAccount(index + 1);
                 if(result.isSuccess()){
                     frame.dispose();
                     new NewAccountPage(PickAccountPage.ACCOUT_TYPE.SAVING);
@@ -115,10 +122,9 @@ public class CreateAccountPage implements IPages, TimerObserver {
                     return;
                 }
                 System.out.println(index);//0:day 1:month 2:year
-                Result<Account> result =systemManager.createLoanAccount(index);
+                Result<Account> result =systemManager.createLoanAccount(index  + 1);
 
                 if(result.isSuccess()){
-                    frame.dispose();
                     JOptionPane.showMessageDialog(null,"Loan Account successfully created!.","Loan Account ",JOptionPane.PLAIN_MESSAGE);
                 }
                 else{
@@ -133,6 +139,10 @@ public class CreateAccountPage implements IPages, TimerObserver {
         stockButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(systemManager.getCurrentUser().hasSecurityAccount()){
+                    JOptionPane.showMessageDialog(null,"Stock account existed!.","Error ",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 new SecurityPickAccountPage();
             }
         });

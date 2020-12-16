@@ -27,4 +27,10 @@ public class Collateral {
     public String getName() {
         return name;
     }
+
+
+    @Override
+    public String toString() {
+        return "type = " + type +" name = " + name + " price = "+ price;
+    }
 }

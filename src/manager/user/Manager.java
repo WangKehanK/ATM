@@ -53,7 +53,7 @@ public class Manager extends AbstractUser {
     }
 
     @Override
-    public SavingAccount createSavingAccount() {
+    public SavingAccount createSavingAccount(int savingRateType) {
         return null;
     }
 
@@ -68,7 +68,7 @@ public class Manager extends AbstractUser {
     }
 
     @Override
-    public SecurityAccount createSecurityAccount() {
+    public SecurityAccount createSecurityAccount(int accountType, int money, int type) {
         return null;
     }
 

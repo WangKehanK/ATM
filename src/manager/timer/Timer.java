@@ -47,7 +47,7 @@ public class Timer implements Runnable{
         while(true){
             //10 s = 1 hr
             try {
-                Thread.sleep(60 * 1000);
+                Thread.sleep(Integer.parseInt(ConfigUtils.getConfig("time", "10")) * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

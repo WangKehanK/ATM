@@ -1,6 +1,7 @@
 package ui;
 
 import manager.SystemManager;
+import manager.account.AccountType;
 import manager.entity.Stock;
 
 import javax.swing.*;
@@ -36,9 +37,17 @@ public class StockAccountPage implements IPages{
     private void placePanelComponents(JPanel panel){
 
 
+        systemManager.chooseAccount(AccountType.SECURITY.getAccountType());
+
         panel.setLayout(null);
 
         List<Stock> stockList = systemManager.getStockList().getData();
+
+        JLabel balance=new JLabel("balance:");
+        balance.setBounds(400,200,200,50);
+        panel.add(balance);
+
+        balance.setText("balance:" + systemManager.getCurrentAccount().getBalance());
 
         JLabel priceLabel=new JLabel("Price:");
         priceLabel.setBounds(400,250,200,50);

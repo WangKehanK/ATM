@@ -73,6 +73,10 @@ public class LoanAccount  implements Account, TimerObserver {
             return false;
         }
 
+        if (collateralList.contains(collateral)) {
+            return false;
+        }
+
         collateralList.add(collateral);
         balance += collateral.getPrice();
         loan += collateral.getPrice();
@@ -80,6 +84,20 @@ public class LoanAccount  implements Account, TimerObserver {
         getAccountDao().updateAccount(this);
         logDao.addLog(userId, new Log(Timer.getInstance().getTimeStr(), "loan "+ collateral.getPrice() + " by " + collateral.getName()));
         return true;
+    }
+
+    public int getLoan(){
+        return loan;
+    }
+
+
+    public String getCurrentLoanListStr(){
+        String str = "-------current loan list ------";
+        for(Collateral collateral : collateralList){
+            str += System.lineSeparator();
+            str += collateral;
+        }
+        return str;
     }
 
     @Override
@@ -146,11 +164,11 @@ public class LoanAccount  implements Account, TimerObserver {
         //TODO:There is no statistics on how much you earn
         Calendar calendar = timer.getCalendar();
         if(loanRateType == LoanDao.DAY_RATE && calendar.get(Calendar.HOUR) == 0){
-            loan = (int) (loan * (1 + loanDao.getLoanRate(loanRateType)));
+            loan = (int) Math.ceil(loan * (1 + loanDao.getLoanRate(loanRateType)));
         }else if(loanRateType == LoanDao.MONTH_RATE && calendar.get(Calendar.DAY_OF_MONTH) == 1 && calendar.get(Calendar.HOUR) == 0){
-            loan = (int) (loan * (1 + loanDao.getLoanRate(loanRateType)));
+            loan = (int) Math.ceil(loan * (1 + loanDao.getLoanRate(loanRateType)));
         }else if(loanRateType == LoanDao.YEAR_RATE && calendar.get(Calendar.MONTH) == 1 && calendar.get(Calendar.DAY_OF_MONTH) == 1 && calendar.get(Calendar.HOUR) == 0){
-            loan = (int) (loan * (1 + loanDao.getLoanRate(loanRateType)));
+            loan = (int) Math.ceil(loan * (1 + loanDao.getLoanRate(loanRateType)));
         }
         getAccountDao().updateAccount(this);
     }
@@ -164,7 +182,10 @@ public class LoanAccount  implements Account, TimerObserver {
 
     @Override
     public String getBalanceStr() {
-        return "";
+        String str = "Loan[" + balance;
+        str += "]";
+        str+= System.lineSeparator();
+        return str;
     }
 
     @Override
@@ -175,5 +196,10 @@ public class LoanAccount  implements Account, TimerObserver {
     @Override
     public boolean saving(int transferMoney, int currencyType) {
         return false;
+    }
+
+    @Override
+    public int getBalance(int type) {
+        return 0;
     }
 }

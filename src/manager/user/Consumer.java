@@ -117,11 +117,11 @@ public class Consumer extends AbstractUser {
     }
 
     @Override
-    public SavingAccount createSavingAccount() {
+    public SavingAccount createSavingAccount(int savingRateType) {
         if(savingAccount != null){
             return null;
         }
-        SavingAccount savingAccount = new SavingAccount(consumerId, AccountDao.DAY_RATE);
+        SavingAccount savingAccount = new SavingAccount(consumerId, savingRateType);
         this.savingAccount = savingAccount;
         accountList.add(savingAccount);
         accountDao.addAccount(consumerId, savingAccount);
@@ -159,7 +159,7 @@ public class Consumer extends AbstractUser {
     }
 
     @Override
-    public SecurityAccount createSecurityAccount() {
+    public SecurityAccount createSecurityAccount(int accountType, int money, int type) {
         if(securityAccount != null){
             return null;
         }
@@ -168,6 +168,14 @@ public class Consumer extends AbstractUser {
         accountList.add(securityAccount);
         accountDao.addAccount(consumerId, securityAccount);
         logDao.addLog(consumerId, new Log(Timer.getInstance().getTimeStr(), "create new security account"));
+        if(accountType == AccountType.SAVING.getAccountType()){
+            savingAccount.draw(money,type);
+            securityAccount.saving(money,type);
+        }
+        if(accountType == AccountType.CHECKING.getAccountType()){
+            checkingAccount.draw(money,type);
+            securityAccount.saving(money,type);
+        }
         securityAccount.fee(1);
         return securityAccount;
     }
