@@ -161,7 +161,7 @@ public class CustomerPage implements IPages, TimerObserver {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                //todo exchange page
+                new ExchangePage();
             }
         });
 
