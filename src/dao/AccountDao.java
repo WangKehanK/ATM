@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * operating account-related data operations
+ * The account Dao pattern we use to read the database, operating account-related data operations
  */
 public class AccountDao {
 

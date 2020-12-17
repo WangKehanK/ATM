@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 /**
- * LoanDao class
+ * The loan Dao pattern we use to read the database
  */
 public class LoanDao {
 

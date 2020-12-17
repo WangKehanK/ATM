@@ -11,9 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * This file is for NewAccountPage class that implements timer observer
- * contains all the functions we need for NewAccountPage class
- * provides the UI for NewAccountPage
+ * This page provides options to user to choose the what kind of interest rate they want (day, month, year), and what type of account they want create
  */
 
 public class NewAccountPage implements TimerObserver {

@@ -3,8 +3,7 @@ package manager.entity;
 import java.util.Objects;
 
 /**
- * This file is for Stock class
- * contains all the functions we need for Stock
+ * This file is for Stock class contains all the functions we need for Stock
  */
 
 public class Stock {

@@ -24,9 +24,9 @@ public class SecurityAccount implements Account{
     private String userId;
 
     private int balance;
-    //记录购买的股票数量
+    //record how many number of stock the customer buys
     private Map<Stock, Integer> stockMap;
-    //记录股票购买的总金额
+    //record total of value
     private Map<Stock, Integer> stockPurchaseMap;
 
     private AccountDao accountDao;

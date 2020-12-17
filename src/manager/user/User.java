@@ -5,7 +5,7 @@ import manager.account.*;
 import java.util.List;
 
 /**
- * User abstract class
+ * A basic User interface, can be extended to any types of user, e.g. Customers, Managers..
  */
 public interface User {
 

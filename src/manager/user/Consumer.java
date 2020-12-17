@@ -11,8 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This file is for Consumer class that extends AbstractUser class
- * contains all the functions we need for Consumer class
+ * The customer user class, extends abstract user, use Dao to read the database
  */
 public class Consumer extends AbstractUser {
     private String consumerId;

@@ -4,8 +4,7 @@ import dao.UserDao;
 import manager.entity.Result;
 
 /**
- * This file is for UserManager class
- * contains all the functions we need for UserManager class
+ * A user manager class, that use to manage all users, the result class from entity is used
  */
 public class UserManager {
     private static UserManager userManager = new UserManager();

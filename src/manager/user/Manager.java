@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This file is for Manager class that extends AbstractUser class
- * contains all the functions we need for Manager class
+ * The customer user class, extends abstract user, use Dao to read the database
  */
 public class Manager extends AbstractUser {
     private LogDao logDao = LogDao.getInstance();

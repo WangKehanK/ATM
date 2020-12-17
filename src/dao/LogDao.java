@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Store log data operations about user operations
+ * The log Dao pattern we use to read the database, store log data operations about user operations
  */
 public class LogDao {
 

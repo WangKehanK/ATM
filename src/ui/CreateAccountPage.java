@@ -14,9 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 /**
- * This file is for CreateAccountPage class that implements IPages interface and timer observer
- * contains all the functions we need for CreateAccountPage class
- * provides the UI for create account page
+ * This page provides customers an option to choose saving account or checking account to interact with
  */
 public class CreateAccountPage implements IPages, TimerObserver {
 

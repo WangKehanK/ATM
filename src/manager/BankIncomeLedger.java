@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 /**
  * This file is for BankIncomeLedger class
- * contains all the functions we need for BankIncomeLedger class
+ * contains all the functions we need for BankIncomeLedger class, used to track the bank's income
  */
 
 public class BankIncomeLedger {

@@ -11,9 +11,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 /**
- * This file is for PickAccountPage class that implements IPages interface and timer observer
- * contains all the functions we need for PickAccountPage class
- * provides the UI for PickAccountPage
+ * This page provides options to choose which account the customers want to use while they save, withdraw...
  */
 
 

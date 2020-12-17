@@ -16,9 +16,7 @@ import java.util.Map;
 import java.util.Vector;
 
 /**
- * This file is for StockAccountPage class that implements IPages interface
- * contains all the functions we need for StockAccountPage class
- * provides the UI for StockAccountPage
+ * The page provides options for user to buy and sell stock
  */
 
 public class StockAccountPage implements IPages{

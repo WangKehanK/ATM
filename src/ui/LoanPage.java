@@ -22,9 +22,7 @@ import java.util.List;
 import java.util.Vector;
 
 /**
- * This file is for LoanPage class that implements IPages interface
- * contains all the functions we need for LoanPage class
- * provides the UI for Loan Page
+ * This page provide UI and buttons for users to loan
  */
 
 

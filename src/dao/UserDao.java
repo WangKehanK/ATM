@@ -7,7 +7,7 @@ import utils.FileUtils;
 import java.util.List;
 
 /**
- * Operate user-related data operations
+ * The user Dao pattern we use to read the database, Operate user-related data operations
  */
 public class UserDao {
     private int maxId;
@@ -20,7 +20,7 @@ public class UserDao {
         consumerList = FileUtils.readConsumers();
         managerList = FileUtils.readManagers();
 
-        //获取最大的id
+        //get the largest id
         maxId = 0;
         for(Consumer consumer : consumerList){
             int id = Integer.parseInt(consumer.getConsumerId());

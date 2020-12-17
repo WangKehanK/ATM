@@ -12,9 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 /**
- * This file is for swPage class that implements IPages interface and timer observer
- * contains all the functions we need for swPage class
- * provides the UI for swPage
+ * The swPage page class, that requires two paramters, which is option(save, withdraw, or transfer), and account type(checking or saving). We implement in such way because these pages are very similar, so we just need to read the input and generate different functionality for them
  */
 
 public class swPage implements IPages, TimerObserver {

@@ -1,8 +1,7 @@
 package manager.user;
 
 /**
- * This file is for AbstractUser class that implements User interface
- * contains all the functions we need for AbstractUser class
+ * A abstract user class, implements User interface, contains functions fot login purpose (username, password)
  */
 
 public abstract class AbstractUser implements User{

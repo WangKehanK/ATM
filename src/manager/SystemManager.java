@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This file is for SystemManager class
- * contains all the functions we need for SystemManager class
+ * The system manager class, the most important class that contains all the main logic for front end; the front end can import these functions in very easy and convinent way.
  */
 
 public class SystemManager {

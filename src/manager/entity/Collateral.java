@@ -1,8 +1,7 @@
 package manager.entity;
 
 /**
- * This file is for Collateral class
- * contains all the functions we need for collateral class
+ * This file is for Collateral class contains all the functions we need for collateral class, e.g. check the price for collateral, check the type, get the name, etc
  */
 public class Collateral {
     private int type;

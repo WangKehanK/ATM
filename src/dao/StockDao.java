@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * operating stock-related data operations
+ * The stock Dao pattern we use to read the database, operating stock-related data operations
  */
 public class StockDao {
     private List<Stock> stockList;

@@ -2,7 +2,7 @@ package manager.account;
 import utils.ConfigUtils;
 
 /**
- * Account interface
+ * The account interface, can be extended to any type of account e.g., Checking Account, Saving Account, Loan Account, Security Account (Stock)...
  */
 public interface Account {
     int USD = 1;

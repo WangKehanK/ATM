@@ -14,6 +14,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+/**
+ * This page provides options to exchange between three different currencies
+ */
 public class ExchangePage implements IPages{
 
 

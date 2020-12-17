@@ -13,9 +13,7 @@ import java.util.List;
 import java.util.Vector;
 
 /**
- * This file is for StockAddPage class that implements IPages interface
- * contains all the functions we need for StockAddPage class
- * provides the UI for StockAddPage
+ * This page provides options for manager to add stocks to the market
  */
 public class StockAddPage implements  IPages{
 

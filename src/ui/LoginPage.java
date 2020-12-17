@@ -13,8 +13,7 @@ import java.awt.event.ActionListener;
 
 /**
  * This file is for LoginPage class that implements IPages interface and timer observer
- * contains all the functions we need for LoginPage class
- * provides the UI for Login Page
+ * provides the UI for Login Page for both customer side and manager side
  */
 
 public class LoginPage implements IPages, TimerObserver {
