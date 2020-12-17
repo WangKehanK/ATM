@@ -21,28 +21,28 @@ All files in ***src*** folder
   - UserDao.java - The user Dao pattern we use to read the database
 - manager
   - account
-    - Account.java
-    - AccountType.java
-    - CheckingAccount.java
-    - LoanAccount.java
-    - SavingAccount.java
-    - SecurityAccount.java
+    - Account.java -Account interface 
+    - AccountType.java - enum class for all different account type
+    - CheckingAccount.java - This file is for checking account, implement the account interface; contains all functions for Checking account
+    - LoanAccount.java - This file is for loan account, implement the account interface and time observer; contains all functions for Checking account
+    - SavingAccount.java - This file is for saving account, implement the account interface and timer observer;contains all functions for saving account
+    - SecurityAccount.java - This file is for securities accounts implement the account interface;Save the security amount at the time of purchase;Calculate how much money you made
   - entity
-    - Collateral.java
-    - Log.java
-    - Result.java
-    - Stock.java
+    - Collateral.java - This file is for Collateral class;contains all the functions we need for collateral class
+    - Log.java -  This file is for Log class;contains all the functions we need for Log class
+    - Result.java - This file is for result class;contains all the functions we need for result class
+    - Stock.java - This file is for Stock class; contains all the functions we need for Stock
   - timer
-    - Timer.java
-    - TimeObserver.java
+    - Timer.java - Time class implements the runnable interface; used to calculate time
+    - TimeObserver.java - time observer for ui and account needs interest
   - user
-    - User.java
-    - AbstractUser.java
-    - Consumer.java
-    - Manager.java
-    - UserManager.java
-  - BankIncomeLedger.java - 
-  - SystemManager.java - 
+    - User.java -User abstract class 
+    - AbstractUser.java -This file is for AbstractUser class that implements User interface;contains all the functions we need for AbstractUser class
+    - Consumer.java - This file is for Consumer class that extends AbstractUser class;contains all the functions we need for Consumer class
+    - Manager.java - This file is for Manager class that extends AbstractUser class;contains all the functions we need for Manager class
+    - UserManager.java - This file is for UserManager class;contains all the functions we need for UserManager class
+  - BankIncomeLedger.java - This file is for BankIncomeLedger class; contains all the functions we need for BankIncomeLedger class
+  - SystemManager.java -  This file is for SystemManager class;contains all the functions we need for SystemManager class
 - ui
   - Ipage.java
   - ...
