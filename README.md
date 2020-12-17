@@ -147,16 +147,15 @@ All files in ***src*** folder
 First you need to compile the program
 ```
 cd ./src
-javac Main.java
-```
-If error ***UnicodeEncodeError: 'gbk' codec can't encode character: illegal multibyte sequence*** appears, I will suggest to compile use the following command
-```
+//using UTF-8 can avoid many errors in different systems
 javac -encoding UTF-8 Main.java
 ```
+
 Then run
 ```
 java Main
 ```
-Then enter the username and password we provide at the beginning of the file. (You can choose customers or managers to play with)
+
+Enter the username and password we provide at the beginning of the file. (You can choose customers or managers to play with)
 
 
