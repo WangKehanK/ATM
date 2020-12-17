@@ -157,5 +157,6 @@ Then run
 ```
 java Main
 ```
+Then enter the username and password we provide at the beginning of the file. (You can choose customers or managers to play with)
 
 
