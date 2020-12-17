@@ -20,6 +20,9 @@ import java.util.*;
 public class FileUtils {
     public static void saveConsumers(List<Consumer> consumerList){
         File file = new File("consumers.csv");
+        if(!file.exists()){
+            file = new File("../consumers.csv");
+        }
         try {
             FileWriter fw = new FileWriter(file);
             fw.write("userId userName  password");
@@ -162,6 +165,9 @@ public class FileUtils {
 
     public static void saveAccount(Map<String, List<Account>> accountMap) {
         File file = new File("account.csv");
+        if(!file.exists()){
+            file = new File("../account.csv");
+        }
         try {
             FileWriter fw = new FileWriter(file);
             fw.write("userId  accountType accountId accountContent");
@@ -234,6 +240,9 @@ public class FileUtils {
 
     public static void saveStockList(List<Stock> stockList) {
         File file = new File("stock.csv");
+        if(!file.exists()){
+            file = new File("../stock.csv");
+        }
         try {
             FileWriter fw = new FileWriter(file);
             fw.write("StockId  StockName Price");
