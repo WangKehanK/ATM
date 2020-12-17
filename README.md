@@ -8,6 +8,7 @@
   - Our exchange rate is steady, which USDTOEURO=2 , USDTOCNY = 10, EUROTOUSD = 0.5, EUROTOCNY = 5, CNYTOUSD = 0.1, CNYTOEURO = 0.2
   - We have three type of interest rate(day, month, year), they are all steady. User can choose what kind of account they want while creating account
   - We set up a simple stock system, where manager can add stocks to the market, and customers can buy or sell them.
+  - While saving different currencies into account, you have to do it one by one
 - Bonus: Input is getting parsed from the input files and is not harcoded: Details in **config.properties**; we provide exchange rate for three currencies we have (USD, CNY, EURO), and how many second equails to one day.(defualt: 60s second = one hour in our bank system)
 - Bonus: We build our stock market; in order to buy stock, you have to create a stock account first in "create account" page. THen you can sell/buy in "Stock" Page.
 
@@ -84,61 +85,69 @@ All files in ***src*** folder
 - stock.csv - Stock database, used to store the stock name, id, and its price
 
 ```
-└─src
-    │  Main.java
-    ├─dao
-    │      AccountDao.java
-    │      LoanDao.java
-    │      LogDao.java
-    │      StockDao.java
-    │      UserDao.java
-    │
-    ├─manager
-    │  │  BankIncomeLedger.java
-    │  │  SystemManager.java
-    │  │
-    │  ├─account
-    │  │      Account.java
-    │  │      AccountType.java
-    │  │      CheckingAccount.java
-    │  │      LoanAccount.java
-    │  │      SavingAccount.java
-    │  │      SecurityAccount.java
-    │  │
-    │  ├─entity
-    │  │      Collateral.java
-    │  │      Log.java
-    │  │      Result.java
-    │  │      Stock.java
-    │  │
-    │  ├─timer
-    │  │      Timer.java
-    │  │      TimerObserver.java
-    │  │
-    │  └─user
-    │          AbstractUser.java
-    │          Consumer.java
-    │          Manager.java
-    │          User.java
-    │          UserManager.java
-    │
-    ├─ui
-    │      CreateAccountPage.java
-    │      CustomerPage.java
-    │      IPages.java
-    │      LoanPage.java
-    │      LoginPage.java
-    │      ManagerPage.java
-    │      NewAccountPage.java
-    │      PickAccountPage.java
-    │      swPage.java
-    │      TestMain.java
-    │      TransferPage.java
-    │      WelcomePage.java
-    │
-    └─utils
-            ConfigUtils.java
-            FileUtils.java
+│  Main.java
+│  config.properties
+│  account.csv
+│  consumers.csv
+│  managers.csv
+│  stock.csv
+├─dao
+│      AccountDao.java
+│      LoanDao.java
+│      LogDao.java
+│      StockDao.java
+│      UserDao.java
+│
+├─manager
+│  │  BankIncomeLedger.java
+│  │  SystemManager.java
+│  │
+│  ├─account
+│  │      Account.java
+│  │      AccountType.java
+│  │      CheckingAccount.java
+│  │      LoanAccount.java
+│  │      SavingAccount.java
+│  │      SecurityAccount.java
+│  │
+│  ├─entity
+│  │      Collateral.java
+│  │      Log.java
+│  │      Result.java
+│  │      Stock.java
+│  │
+│  ├─timer
+│  │      Timer.java
+│  │      TimerObserver.java
+│  │
+│  └─user
+│          AbstractUser.java
+│          Consumer.java
+│          Manager.java
+│          User.java
+│          UserManager.java
+│
+├─ui
+│      CreateAccountPage.java
+│      CustomerPage.java
+│      ExchangePage.java
+│      IPages.java
+│      LoanPage.java
+│      LoginPage.java
+│      ManagerPage.java
+│      NewAccountPage.java
+│      PickAccountPage.java
+│      SecurityPickAccountPage.java
+│      StockAccountPage.java
+│      StockAddPage.java
+│      StockPage.java
+│      swPage.java
+│      WelcomePage.java
+│
+└─utils
+        ConfigUtils.java
+        FileUtils.java
+
 
 ```
 # 3. Get Start
