@@ -41,7 +41,11 @@ public class FileUtils {
     public static List<Consumer> readConsumers() {
         Scanner sc = null;
         try {
-            sc = new Scanner(new File("consumers.csv"));
+            File file = new File("consumers.csv");
+            if(!file.exists()){
+                file = new File("../consumers.csv");
+            }
+            sc = new Scanner(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -60,7 +64,11 @@ public class FileUtils {
     public static List<Manager> readManagers() {
         Scanner sc = null;
         try {
-            sc = new Scanner(new File("managers.csv"));
+            File file = new File("managers.csv");
+            if(!file.exists()){
+                file = new File("../managers.csv");
+            }
+            sc = new Scanner(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -79,7 +87,11 @@ public class FileUtils {
     public static Map<String, List<Account>> readAccountMap() {
         Scanner sc = null;
         try {
-            sc = new Scanner(new File("account.csv"));
+            File file = new File("account.csv");
+            if(!file.exists()){
+                file = new File("../account.csv");
+            }
+            sc = new Scanner(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -189,7 +201,11 @@ public class FileUtils {
     public static List<Collateral> readCollateralList() {
         Scanner sc = null;
         try {
-            sc = new Scanner(new File("collateral.csv"));
+            File file = new File("collateral.csv");
+            if(!file.exists()){
+                file = new File("../collateral.csv");
+            }
+            sc = new Scanner(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -215,7 +231,11 @@ public class FileUtils {
     public static List<Stock> readStockList() {
         Scanner sc = null;
         try {
-            sc = new Scanner(new File("stock.csv"));
+            File file = new File("stock.csv");
+            if(!file.exists()){
+                file = new File("../stock.csv");
+            }
+            sc = new Scanner(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
