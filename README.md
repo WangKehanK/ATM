@@ -4,11 +4,11 @@
 - We assume:
   - Every single user can only have one saving account,one checking account,one loan account and one stock account.
   - We have different interest rates for day saving, month saving, year saving.
-  - Every 60s in real life equals one hour in our bank system, where interest rates will be calculated at daliy basis.
+  - Every 60s in real life equals one hour in our bank system, 24 hour a day where interest rates will be calculated at daliy basis.
   - Our exchange rate is steady, which USDTOEURO=2 , USDTOCNY = 10, EUROTOUSD = 0.5, EUROTOCNY = 5, CNYTOUSD = 0.1, CNYTOEURO = 0.2
   - We have three type of interest rate(day, month, year), they are all steady. User can choose what kind of account they want while creating account
   - We set up a simple stock system, where manager can add stocks to the market, and customers can buy or sell them.
-- Bonus: Input is getting parsed from the input files and is not harcoded: Details in **config.properties**; we provide exchange rate for three currencies we have (USD, CNY, EURO), and how many second equails to one day.(defualt: 60s second = one day in our bank system)
+- Bonus: Input is getting parsed from the input files and is not harcoded: Details in **config.properties**; we provide exchange rate for three currencies we have (USD, CNY, EURO), and how many second equails to one day.(defualt: 60s second = one hour in our bank system)
 - Bonus: We build our stock market; in order to buy stock, you have to create a stock account first in "create account" page. THen you can sell/buy in "Stock" Page.
 
 ```
@@ -50,7 +50,7 @@ All files in ***src*** folder
     - Stock.java - This file is for Stock class contains all the functions we need for Stock, e.g. get the stock name, get the stock ID, get the stock price
   - timer
     - Timer.java - Time class implements the runnable interface used to track time
-    - TimeObserver.java - A time observer for ui and account needs interest. In our bank system, we set 60s as one day, you can modify this in our config.properties file
+    - TimeObserver.java - A time observer for ui and account needs interest. In our bank system, we set 60s as one hour, you can modify this in our config.properties file
   - user
     - User.java - A basic User interface, can be extended to any types of user, e.g. Customers, Managers..
     - AbstractUser.java - A abstract user class, implements User interface, contains functions fot login purpose (username, password)
