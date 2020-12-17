@@ -11,6 +11,19 @@
 - Bonus: Input is getting parsed from the input files and is not harcoded: Details in **config.properties**; we provide exchange rate for three currencies we have (USD, CNY, EURO), and how many second equails to one day.(defualt: 60s second = one day in our bank system)
 - Bonus: We build our stock market; in order to buy stock, you have to create a stock account first in "create account" page. THen you can sell/buy in "Stock" Page.
 
+```
+Customer account #1
+username: 123
+password: 123
+
+Customer account #1
+username: test1
+password: test1
+
+manager account
+username: test
+password: test
+```
 # 2. Structure
 
 All files in ***src*** folder
