@@ -150,6 +150,7 @@ cd ./src
 //using UTF-8 can avoid many errors in different systems
 javac -encoding UTF-8 Main.java
 ```
+You can avoid warning “ -Xlint:unchecked ”
 
 Then run
 ```
